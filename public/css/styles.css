@@ -1,0 +1,42 @@
+/*   
+  Author: Sydney Stalker
+  Class: CST 336 - Internet Programming
+  Date: 12/18/2025
+  Assignment: Final Project
+
+  Palette: https://coolors.co/palette/d9ed92-b5e48c-99d98c-76c893-52b69a-34a0a4-168aad-1a759f-1e6091-184e77
+  Meadow Green
+    ~Lime Cream    #D9ED92    
+    ~Light Green   #B5E48C  
+    ~Willow Green  #99D98C  
+    ~Emerald       #76C893  
+    ~Ocean Mist    #52B69A  
+    ~Tropical Teal #34A0A4  
+    ~Bondi Blue    #168AAD  
+    ~Cerulean      #1A759F  
+    ~Baltic Blue   #1E6091  
+    ~Yale Blue     #184E77
+*/
+
+/* Palette */
+:root {
+  --green-1: #D9ED92;
+  --green-2: #B5E48C;
+  --green-3: #99D98C;
+  --green-4: #76C893;
+  --green-5: #52B69A;
+  --aqua-1:  #34A0A4;
+  --aqua-2:  #168AAD;
+  --blue-1:  #1A759F;
+  --blue-2:  #1E6091;
+  --blue-3:  #184E77;
+}
+
+
+/* footer */
+footer {
+  text-align: center;
+  font-size: 0.8em;
+  color: #ccc;
+  padding: 15px 0;
+}
