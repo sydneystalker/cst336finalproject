@@ -50,10 +50,63 @@ const pool = mysql.createPool({
     waitForConnections: true
 });
 
-//routes
+// ===============================
+// ROUTES
+// ===============================
 app.get('/', (req, res) => {
    res.render('index')
 });
+
+// ===============================
+// SUBJECT ROUTES
+// ===============================
+
+// List all subjects
+app.get("/subjects", (req, res) => {
+    res.render("subjects/list");
+});
+
+// New subject form
+app.get("/subjects/new", (req, res) => {
+    res.render("subjects/new");
+});
+
+// Edit subject form
+app.get("/subjects/edit/:id", (req, res) => {
+    // Later: fetch subject data using req.params.id
+    res.render("subjects/edit", { id: req.params.id });
+});
+
+
+// ===============================
+// FLASHCARD ROUTES
+// ===============================
+
+// List flashcards
+app.get("/flashcards", (req, res) => {
+    res.render("flashcards/list");
+});
+
+// New flashcard form
+app.get("/flashcards/new", (req, res) => {
+    res.render("flashcards/new");
+});
+
+
+// ===============================
+// STUDY SESSION ROUTES
+// ===============================
+
+// List study sessions
+app.get("/sessions", (req, res) => {
+    res.render("sessions/list");
+});
+
+// New study session form
+app.get("/sessions/new", (req, res) => {
+    res.render("sessions/new");
+});
+
 
 //dbTest
 app.get("/dbTest", async(req, res) => {
