@@ -18,7 +18,10 @@
     ~Yale Blue     #184E77
 */
 
-/* Palette */
+/* ================================
+   GLOBAL STYLE + PALETTE
+=================================== */
+
 :root {
   --green-1: #D9ED92;
   --green-2: #B5E48C;
@@ -30,13 +33,137 @@
   --blue-1:  #1A759F;
   --blue-2:  #1E6091;
   --blue-3:  #184E77;
+
+  --text-dark: #0b2e2a;
+  --text-light: #ffffff;
+  --bg-light: #f9fff6;
 }
 
+/* Reset-ish */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text-dark);
+}
 
-/* footer */
+/* Centered container for layouts */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 600;
+  color: var(--blue-3);
+}
+
+/* ================================
+   HEADER
+=================================== */
+
+header {
+  background-color: var(--blue-2);
+  color: var(--text-light);
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  height: 50px;
+}
+
+.site-title {
+  font-size: 1.8rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* ================================
+   NAVIGATION (Inspired by your example)
+=================================== */
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    background-color: var(--aqua-2);
+    padding: 12px 0;
+}
+
+nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 8px 16px;
+    font-size: 1.1em;
+
+    border-radius: 8px;
+    transition: 0.25s ease-in-out;
+}
+
+nav a:hover {
+    background-color: var(--aqua-1);
+    transform: scale(1.08);
+}
+
+nav a.active {
+    background-color: var(--blue-1);
+    border-bottom: 3px solid var(--green-1);
+}
+
+/* ================================
+   MAIN CONTENT
+=================================== */
+
+main {
+  padding: 20px 0;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* ================================
+   FOOTER
+=================================== */
+
 footer {
+  background-color: var(--blue-3);
+  color: var(--text-light);
+  padding: 20px;
   text-align: center;
-  font-size: 0.8em;
-  color: #ccc;
-  padding: 15px 0;
+  margin-top: 40px;
 }
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-logo {
+    height: 45px;
+}
+
+footer p {
+  margin: 3px 0;
+}
+
