@@ -50,17 +50,12 @@ const pool = mysql.createPool({
     waitForConnections: true
 });
 
-// ===============================
 // ROUTES
-// ===============================
 app.get('/', (req, res) => {
    res.render('index')
 });
 
-// ===============================
 // SUBJECT ROUTES
-// ===============================
-
 // List all subjects
 app.get("/subjects", (req, res) => {
     res.render("subjects/list");
@@ -77,11 +72,7 @@ app.get("/subjects/edit/:id", (req, res) => {
     res.render("subjects/edit", { id: req.params.id });
 });
 
-
-// ===============================
 // FLASHCARD ROUTES
-// ===============================
-
 // List flashcards
 app.get("/flashcards", (req, res) => {
     res.render("flashcards/list");
@@ -92,11 +83,7 @@ app.get("/flashcards/new", (req, res) => {
     res.render("flashcards/new");
 });
 
-
-// ===============================
 // STUDY SESSION ROUTES
-// ===============================
-
 // List study sessions
 app.get("/sessions", (req, res) => {
     res.render("sessions/list");

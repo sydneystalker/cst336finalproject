@@ -1,4 +1,4 @@
-<!-- 
+<!--  
   Author: Sydney Stalker, Thomas Vandergroen and Brandon Evangelista
   Class: CST 336 – Internet Programming
   Date: 12/18/2025
@@ -11,24 +11,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudySmart</title>
+    <title>StudySmart – Add Subject</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
-    <!-- Header + Nav -->
     <%- include('../partials/header'); %>
 
-    <main class="container">
-        <h1>Page Title</h1>
+    <main class="subjects-main">
+        <section class="subjects-hero container">
 
-        <div class="card">
-            <p>This is a placeholder for this page's content.</p>
-        </div>
+            <h1 class="subjects-title">Add New Subject</h1>
+
+            <div class="card form-card">
+
+                <!-- Placeholder form for now -->
+                <form action="#" method="POST">
+
+                    <div class="form-group">
+                        <label for="subjectName">Subject Name</label>
+                        <input 
+                            type="text" 
+                            id="subjectName" 
+                            name="subjectName" 
+                            placeholder="Enter subject name"
+                            disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subjectDesc">Description</label>
+                        <textarea 
+                            id="subjectDesc" 
+                            name="subjectDesc" 
+                            placeholder="Enter a short subject description"
+                            disabled></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" disabled>
+                        Save Subject
+                    </button>
+
+                </form>
+
+                <a href="/subjects" class="btn btn-secondary back-link">← Back to Subjects</a>
+            </div>
+
+        </section>
     </main>
 
-    <!-- Footer -->
     <%- include('../partials/footer'); %>
 
 </body>

@@ -1,10 +1,10 @@
-  <!-- 
+<!--  
   Author: Sydney Stalker
   Class: CST 336 - Internet Programming
   Date: 12/18/2025
   Assignment: Final Project
   File: index.ejs 
-  -->
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,23 +19,50 @@
 
     <%- include('partials/header'); %>
 
-    <main class="container">
-        <h1>Welcome to StudySmart</h1>
+    <main class="home-main">
 
-        <div class="card">
-            <p>Your study assistant for Subjects, Flashcards, and Study Sessions.</p>
-            <p>This is just a placeholder page to verify our layout and styles.</p>
-        </div>
+        <section class="home-hero container">
+            <h1 class="home-title">Welcome to StudySmart</h1>
+            <p class="home-subtitle">
+                Your study assistant for subjects, flashcards, and study sessions.
+            </p>
 
-        <div class="card">
-            <h2>Quick Check</h2>
-            <ul>
-                <li>Header loads - Check</li>
-                <li>Navigation styles applied - Check</li>
-                <li>CSS palette working - Check</li>
-                <li>Footer appears - Check</li>
-            </ul>
-        </div>
+            <!-- these are placholder stat-values -->
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Subjects</div>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-value">34</div>
+                    <div class="stat-label">Flashcards</div>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-value">12h45m</div>
+                    <div class="stat-label">Study Time</div>
+                </article>
+            </div>
+
+            <!-- this is a placholder, it will be a motivatinal quote from an API -->
+            <div class="panels-grid">
+                <article class="info-card quote-card">
+                    <p class="quote-text">
+                        “Love challenges, be intrigued by mistakes, enjoy effort, and keep on learning.”
+                    </p>
+                    <p class="quote-author">— Carol Dweck</p>
+                </article>
+
+                <article class="info-card subject-card">
+                    <h2 class="info-title">Last Subject: Biology</h2>
+                    <p class="info-text">
+                        Flashcards and sessions covering cell biology, genetics, and evolution.
+                    </p>
+                </article>
+            </div>
+        </section>
+
     </main>
 
     <%- include('partials/footer'); %>

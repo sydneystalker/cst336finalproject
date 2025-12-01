@@ -1,4 +1,4 @@
-<!-- 
+<!--  
   Author: Sydney Stalker, Thomas Vandergroen and Brandon Evangelista
   Class: CST 336 – Internet Programming
   Date: 12/18/2025
@@ -11,24 +11,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudySmart</title>
+    <title>StudySmart – Subjects</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
-    <!-- Header + Nav -->
     <%- include('../partials/header'); %>
 
-    <main class="container">
-        <h1>Page Title</h1>
+    <main class="subjects-main">
 
-        <div class="card">
-            <p>This is a placeholder for this page's content.</p>
-        </div>
+        <section class="subjects-hero container">
+            <header class="subjects-header">
+                <h1 class="subjects-title">Subjects List</h1>
+
+                <!-- Add Subject button -->
+                <a href="/subjects/new" class="btn btn-primary">
+                    Add Subject
+                </a>
+            </header>
+
+            <!-- Subject cards (static placeholders for now) -->
+            <section class="subjects-grid">
+                <article class="subject-card">
+                    <h2 class="subject-title">Mathematics</h2>
+                    <p class="subject-desc">
+                        Algebra, geometry, calculus, and statistics.
+                    </p>
+                </article>
+
+                <article class="subject-card">
+                    <h2 class="subject-title">Biology</h2>
+                    <p class="subject-desc">
+                        Cell biology, genetics, and evolution.
+                    </p>
+                </article>
+
+                <article class="subject-card">
+                    <h2 class="subject-title">History</h2>
+                    <p class="subject-desc">
+                        Ancient civilizations, History of Europe, and U.S. history.
+                    </p>
+                </article>
+
+                <article class="subject-card">
+                    <h2 class="subject-title">Literature</h2>
+                    <p class="subject-desc">
+                        Classic and modern novels, poetry and drama.
+                    </p>
+                </article>
+
+                <article class="subject-card">
+                    <h2 class="subject-title">Computer Science</h2>
+                    <p class="subject-desc">
+                        Programming, algorithms, and data structures.
+                    </p>
+                </article>
+            </section>
+        </section>
+
     </main>
 
-    <!-- Footer -->
     <%- include('../partials/footer'); %>
 
 </body>
