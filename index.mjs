@@ -4,7 +4,6 @@
   Date: 12/18/2025
   Assignment: Final Project
   File: index.mjs
-  Abstract: 
 
   Final Project Rubric:
     Minimum Requirements (–20 pts if missing any):
@@ -68,7 +67,6 @@ app.get("/subjects/new", (req, res) => {
 
 // Edit subject form
 app.get("/subjects/edit/:id", (req, res) => {
-    // Later: fetch subject data using req.params.id
     res.render("subjects/edit", { id: req.params.id });
 });
 
@@ -81,17 +79,6 @@ app.get("/flashcards", (req, res) => {
 // New flashcard form
 app.get("/flashcards/new", (req, res) => {
     res.render("flashcards/new");
-});
-
-// STUDY SESSION ROUTES
-// List study sessions
-app.get("/sessions", (req, res) => {
-    res.render("sessions/list");
-});
-
-// New study session form
-app.get("/sessions/new", (req, res) => {
-    res.render("sessions/new");
 });
 
 

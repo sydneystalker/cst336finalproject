@@ -3,7 +3,6 @@
   Class: CST 336 – Internet Programming
   Date: 12/18/2025
   Assignment: Final Project
-  Note: HTML/EJS structure created by Sydney Stalker
 -->
 
 <!DOCTYPE html>
@@ -17,7 +16,6 @@
 
 <body>
 
-    <!-- Header + Nav -->
     <%- include('../partials/header'); %>
 
     <main class="flashcards-main">
@@ -27,107 +25,8 @@
             <!-- Page title -->
             <h1 class="flashcards-title">Flashcards</h1>
 
-            <!-- Filter / controls row -->
-            <section class="flashcards-controls">
-                <div class="control-group">
-                    <label for="subjectFilter" class="control-label">Subject</label>
-                    <select id="subjectFilter" name="subjectFilter" disabled>
-                        <option>Subject</option>
-                        <option>Mathematics</option>
-                        <option>Biology</option>
-                        <option>History</option>
-                        <option>Computer Science</option>
-                    </select>
-                </div>
-
-                <div class="control-group">
-                    <span class="control-label">Filter:</span>
-                    <span class="control-inline">
-                        Difficulty:
-                        <label>
-                            <input type="radio" name="difficulty" disabled> Hard
-                        </label>
-                    </span>
-                    <label class="control-inline">
-                        <input type="checkbox" name="starredOnly" disabled>
-                        Show starred only
-                    </label>
-                </div>
-            </section>
-
-            <!-- Flashcards grid (static placeholders for now) -->
-            <section class="flashcards-grid">
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">Mathematics</h2>
-                        <span class="flashcard-star">★</span>
-                    </header>
-                    <p class="flashcard-text">Explain the Pythagorean theorem.</p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">Biology</h2>
-                        <span class="flashcard-star">★</span>
-                    </header>
-                    <p class="flashcard-text">
-                        Diffusion of water across a selectively permeable membrane.
-                    </p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">Mathematics</h2>
-                        <span class="flashcard-star">★</span>
-                    </header>
-                    <p class="flashcard-text">Explain the Pythagorean theorem.</p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">History</h2>
-                    </header>
-                    <p class="flashcard-text">
-                        First ten amendments of the U.S. Constitution.
-                    </p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">Biology</h2>
-                    </header>
-                    <p class="flashcard-text">Osmosis.</p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">Computer Science</h2>
-                    </header>
-                    <p class="flashcard-text">
-                        Main components of a computer.
-                    </p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">History</h2>
-                    </header>
-                    <p class="flashcard-text">
-                        First ten amendments to the U.S. Constitution.
-                    </p>
-                </article>
-
-                <article class="flashcard-card">
-                    <header class="flashcard-header">
-                        <h2 class="flashcard-subject">Biology</h2>
-                    </header>
-                    <p class="flashcard-text">
-                        First ten amendments to the U.S. Constitution.
-                    </p>
-                </article>
-
-            </section>
+            <!--  -->
+            
 
             <!-- Add Flashcard button -->
             <div class="flashcards-add-wrapper">
@@ -140,7 +39,6 @@
 
     </main>
 
-    <!-- Footer -->
     <%- include('../partials/footer'); %>
 
 </body>
