@@ -28,6 +28,11 @@
         50 CSS properties or Bootstrap .................................................. 10 pts
 */
 
+//LOGIN INFO
+//USERNAME: admin
+//PASSWORD: secret
+
+
 import express from 'express';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
