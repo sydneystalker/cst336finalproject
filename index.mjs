@@ -30,54 +30,137 @@
 
 import express from 'express';
 import mysql from 'mysql2/promise';
+import bcrypt from 'bcrypt';
+import session from 'express-session';
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+app.set('trust proxy', 1); 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
 //for Express to get values using POST method
 app.use(express.urlencoded({extended:true}));
 
-//setting up database connection pool
+// Setting up database connection pool
+//This is set up to Sydney's for now at least, for testing test
 const pool = mysql.createPool({
-    host: "your_hostname",
-    user: "your_username",
-    password: "your_password",
-    database: "your_database",
-    connectionLimit: 10,
-    waitForConnections: true
+  host: "w1h4cr5sb73o944p.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+  user: "f22soef3w721uqas",
+  password: "w2rrbwa0a7q112xi",
+  database: "qwfpbrplqjdhpu25",
+  connectionLimit: 10,
+  waitForConnections: true,
 });
 
+//Middleware
+function isAuthenticated(req, res, next) {
+  if (!req.session.authenticated) {
+    return res.redirect("/login");
+  }
+  next();
+}
+
 // ROUTES
-app.get('/', (req, res) => {
-   res.render('index')
+
+app.get('/', isAuthenticated, (req, res) => {
+  res.render('index', { username: req.session.username });
+});
+
+// Login form
+app.get('/login', (req, res) => {
+  if (req.session.authenticated) {
+    return res.redirect('/');
+  }
+  res.render('auth/login');
+});
+
+// profile page
+app.get('/myProfile', isAuthenticated, (req, res) => {
+  res.render('auth/profile', { username: req.session.username });
+});
+
+app.get('/register', (req, res) => {
+  res.render('auth/register');
+});
+
+
+// Login 
+app.post('/login', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  let sql = `
+    SELECT *
+    FROM admin
+    WHERE username = ?
+  `;
+
+  try {
+    const [rows] = await pool.query(sql, [username]);
+
+    if (rows.length === 0) {
+      return res.redirect('/login');
+    }
+
+    const passwordHash = rows[0].password;
+    const match = await bcrypt.compare(password, passwordHash);
+
+    if (match) {
+      req.session.authenticated = true;
+      req.session.username = rows[0].username; 
+      return res.redirect('/');                
+    } else {
+      return res.redirect('/login');
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+// Profile page 
+app.get('/myProfile', isAuthenticated, (req, res) => {
+  res.render('profile', { username: req.session.username });
+});
+
+// Logout 
+app.get('/logout', isAuthenticated, (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/login');
+  });
 });
 
 // SUBJECT ROUTES
 // List all subjects
-app.get("/subjects", (req, res) => {
+app.get("/subjects", isAuthenticated, (req, res) => {
     res.render("subjects/list");
 });
 
 // New subject form
-app.get("/subjects/new", (req, res) => {
+app.get("/subjects/new", isAuthenticated, (req, res) => {
     res.render("subjects/new");
 });
 
 // Edit subject form
-app.get("/subjects/edit/:id", (req, res) => {
+app.get("/subjects/edit/:id", isAuthenticated, (req, res) => {
     res.render("subjects/edit", { id: req.params.id });
 });
 
 // FLASHCARD ROUTES
 // List flashcards
-app.get("/flashcards", (req, res) => {
+app.get("/flashcards", isAuthenticated, (req, res) => {
     res.render("flashcards/list");
 });
 
 // New flashcard form
-app.get("/flashcards/new", (req, res) => {
+app.get("/flashcards/new", isAuthenticated, (req, res) => {
     res.render("flashcards/new");
 });
 
