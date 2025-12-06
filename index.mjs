@@ -96,9 +96,28 @@ app.get('/register', (req, res) => {
 
 // Register POST - Sydney
 app.post('/register', async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { 
+    username, 
+    email, 
+    password, 
+    confirmPassword,
+    phoneNumber,
+    profilePicture,
+    grade,
+    userType,
+    agreeTerms
+  } = req.body;
 
+  // Basic validation
   if (!username || !email || !password || password !== confirmPassword) {
+    return res.redirect('/register');
+  }
+
+  if (!grade) {
+    return res.redirect('/register');
+  }
+
+  if (agreeTerms !== "yes") {
     return res.redirect('/register');
   }
 
@@ -106,13 +125,24 @@ app.post('/register', async (req, res) => {
     const hashed = await bcrypt.hash(password, saltRounds);
 
     const sql = `
-      INSERT INTO admin (username, password, email)
-      VALUES (?, ?, ?)
+      INSERT INTO admin 
+        (username, email, password, phoneNumber, profilePicture, grade)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
-    await pool.query(sql, [username, hashed, email]);
+
+    await pool.query(sql, [
+      username,
+      email,
+      hashed,
+      phoneNumber || null,
+      profilePicture || null,
+      grade,
+      'user'
+    ]);
 
     req.session.authenticated = true;
     req.session.username = username;
+    req.session.role = 'user';
 
     res.redirect('/');
   } catch (err) {
@@ -121,12 +151,76 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Profile page -Sydney
-app.get('/profile', isAuthenticated, (req, res) => {
-  res.render('auth/profile', { username: req.session.username });
+// Profile GET -Sydney
+app.get('/profile', isAuthenticated, async (req, res) => {
+  const username = req.session.username;
+  
+  const sql = `SELECT * FROM admin WHERE username = ?`;
+
+  try {
+    const [rows] = await pool.query(sql, [username]);
+    const user = rows[0];
+
+    const message = req.session.profileMessage || null;
+    req.session.profileMessage = null; // clear message after showing
+
+    res.render('auth/profile', { user, message });
+
+  } catch (err) {
+    console.error("Profile load error:", err);
+    res.status(500).send("Server error");
+  }
 });
 
-// Login get - Sydney
+
+// Profile UPDATE POST - Sydney
+app.post('/profile', isAuthenticated, async (req, res) => {
+  const {
+    email,
+    phoneNumber,
+    profilePicture,
+    grade
+  } = req.body;
+
+  const username = req.session.username;  // identify user by session username
+
+  // Basic validation
+  if (!email || !grade) {
+    return res.redirect('/profile');
+  }
+
+  const sql = `
+    UPDATE admin
+    SET 
+      email = ?, 
+      phoneNumber = ?, 
+      profilePicture = ?, 
+      grade = ?, 
+      updatedAt = NOW()
+    WHERE username = ?
+  `;
+
+  try {
+    await pool.query(sql, [
+      email,
+      phoneNumber || null,
+      profilePicture || null,
+      grade,
+      username
+    ]);
+
+    req.session.profileMessage = "Profile updated successfully!";
+
+    res.redirect('/profile');
+
+  } catch (err) {
+    console.error("Profile update error:", err);
+    res.redirect('/profile');
+  }
+});
+
+
+// Login GET - Sydney
 app.get('/login', (req, res) => {
   if (req.session.authenticated) {
     return res.redirect('/');

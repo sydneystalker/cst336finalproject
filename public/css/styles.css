@@ -1,4 +1,4 @@
-/*   
+/*    
   Author: Sydney Stalker
   Class: CST 336 - Internet Programming
   Date: 12/18/2025
@@ -6,22 +6,9 @@
   File: styles.css
 
   Palette: https://coolors.co/palette/d9ed92-b5e48c-99d98c-76c893-52b69a-34a0a4-168aad-1a759f-1e6091-184e77
-  Meadow Green
-    ~Lime Cream    #D9ED92    
-    ~Light Green   #B5E48C  
-    ~Willow Green  #99D98C  
-    ~Emerald       #76C893  
-    ~Ocean Mist    #52B69A  
-    ~Tropical Teal #34A0A4  
-    ~Bondi Blue    #168AAD  
-    ~Cerulean      #1A759F  
-    ~Baltic Blue   #1E6091  
-    ~Yale Blue     #184E77
 */
 
-/* ================================
-   GLOBAL STYLE + PALETTE
-=================================== */
+/* ---------- COLOR VARIABLES & GLOBAL ---------- */
 
 :root {
   --green-1: #D9ED92;
@@ -48,9 +35,16 @@ body {
   color: var(--text-dark);
 }
 
-.container {
+/* Shared centered layout */
+.container,
+.header-content,
+.home-hero,
+.subjects-hero {
   max-width: 1100px;
   margin: 0 auto;
+}
+
+.container {
   padding: 20px;
 }
 
@@ -60,149 +54,132 @@ h1, h2, h3 {
   color: var(--blue-3);
 }
 
-/* ================================
-   HEADER
-=================================== */
+/* ---------- HEADER & NAV ---------- */
+
+.site-header,
+nav.main-nav {
+  background-color: var(--blue-2);
+  color: var(--text-light);
+}
 
 .site-header {
-  background-color: var(--blue-2);
-  color: white;
   padding: 12px 0;
 }
 
 .header-content {
-  max-width: 1100px;
-  margin: 0 auto;
   padding: 0 20px;
-
   display: flex;
   align-items: center;
   justify-content: space-between; 
 }
 
 .site-title {
-  color: white;
+  color: var(--text-light);
   font-size: 1.9rem;
   font-weight: 700;
   letter-spacing: 1.2px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-
-/* ================================
-   NAVIGATION 
-=================================== */
-
+/* Main nav bar */
 nav.main-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 22px;
-
-    background-color: var(--blue-2);
-    padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  padding: 12px 0;
 }
 
 /* Regular nav links */
 nav.main-nav a {
-    color: var(--text-light);
-    text-decoration: none;
-    padding: 8px 16px;
-    font-size: 1.1rem;
-
-    border-radius: 6px;
+  color: var(--text-light);
+  text-decoration: none;
+  padding: 8px 16px;
+  font-size: 1.1rem;
+  border-radius: 6px;
 }
 
 nav.main-nav a:hover {
-    background-color: var(--aqua-1);
+  background-color: var(--aqua-1);
 }
 
 nav.main-nav a.active {
-    background-color: var(--blue-1);
-    border-bottom: 3px solid var(--green-1);
+  background-color: var(--blue-1);
+  border-bottom: 3px solid var(--green-1);
 }
 
-/* ================================
-   SIMPLE CLICK DROPDOWN
-=================================== */
+/* ---------- SIMPLE CLICK DROPDOWN (HEADER) ---------- */
 
 .nav-dropdown {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 /* Hidden checkbox */
 .nav-toggle {
-    display: none;
+  display: none;
 }
 
 /* Dropdown button */
 .nav-dropbtn {
-    background: none;
-    border: none;
-    color: var(--text-light);
-    padding: 8px 16px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border-radius: 6px;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  padding: 8px 16px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
 .nav-dropbtn:hover {
-    background-color: var(--aqua-1);
+  background-color: var(--aqua-1);
 }
 
 /* Dropdown panel */
 .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    top: 110%;
-    right: 0;
-
-    background-color: var(--blue-2);
-    border-radius: 6px;
-    min-width: 140px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    z-index: 20;
+  display: none;
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: var(--blue-2);
+  border-radius: 6px;
+  min-width: 140px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  z-index: 20;
 }
 
-/* Items */
+/* Dropdown items */
 .nav-dropdown-content a {
-    display: block;
-    padding: 10px 14px;
-    text-decoration: none;
-    color: var(--text-light);
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: var(--text-light);
 }
 
 .nav-dropdown-content a:hover {
-    background-color: var(--aqua-1);
+  background-color: var(--aqua-1);
 }
 
-/* When checkbox is checked — show dropdown */
+/* Show dropdown when checkbox checked */
 .nav-toggle:checked ~ .nav-dropdown-content {
-    display: block;
+  display: block;
 }
 
-
-
-/* ================================
-   MAIN CONTENT
-=================================== */
+/* ---------- MAIN CONTENT & CARDS ---------- */
 
 main {
   padding: 20px 0;
 }
 
 .card {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   margin-bottom: 20px;
 }
 
-/* ================================
-   FOOTER
-=================================== */
+/* ---------- FOOTER ---------- */
 
 footer {
   background-color: var(--blue-3);
@@ -213,31 +190,27 @@ footer {
 }
 
 .footer-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
 .footer-logo {
-    height: 45px;
+  height: 45px;
 }
 
 footer p {
   margin: 3px 0;
 }
 
-/* ================================
-   HOME PAGE – DASHBOARD CARDS
-=================================== */
+/* ---------- HOME PAGE / DASHBOARD (Sydney) ---------- */
 
 .home-main {
   background-color: var(--bg-light);
 }
 
 .home-hero {
-  max-width: 1100px;
-  margin: 0 auto;
   padding: 60px 20px 80px;
 }
 
@@ -316,28 +289,7 @@ footer p {
   line-height: 1.5;
 }
 
-/* ================================
-   RESPONSIVE LAYOUT
-=================================== */
-
-@media (max-width: 768px) {
-  .home-hero {
-    padding: 30px 16px 50px;
-  }
-
-  .home-title {
-    font-size: 2rem;
-  }
-
-  .stats-grid,
-  .panels-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ================================
-   BUTTONS
-=================================== */
+/* ---------- SHARED BUTTONS ---------- */
 
 .btn {
   display: inline-block;
@@ -362,17 +314,159 @@ footer p {
   transform: translateY(-1px);
 }
 
-/* ================================
-   SUBJECTS LIST PAGE
-=================================== */
+/* ---------- SHARED FORM / ERROR STYLES ---------- */
+
+.form-errors {
+  display: none;
+  background-color: #ffe6e6;
+  color: #8b0000;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.form-errors p {
+  margin: 4px 0;
+}
+
+/* =========================================================
+   SYDNEY – AUTH & PROFILE VIEWS
+   (Login, Register, Profile)
+   ========================================================= */
+
+/* Layout wrappers for auth pages */
+.auth-main {
+  max-width: 600px;
+}
+
+.auth-title {
+  margin-bottom: 15px;
+}
+
+.auth-card {
+  padding: 20px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-label {
+  font-weight: 500;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.auth-btn {
+  margin-top: 10px;
+}
+
+.auth-footer-text {
+  margin-top: 10px;
+}
+
+/* Profile page layout */
+.profile-main {
+}
+
+.profile-card {
+  padding: 24px;
+}
+
+.profile-summary img.profile-avatar {
+  max-width: 260px;
+  border-radius: 12px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+/* simple placeholder avatar if no image */
+.placeholder-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--green-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+/* Edit form area */
+.profile-form {
+  margin-top: 20px;
+}
+
+.profile-readonly-row {
+  margin: 12px 0;
+}
+
+/* =========================================================
+   RESPONSIVE LAYOUT – SHARED
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .subjects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 30px 16px 50px;
+  }
+
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .stats-grid,
+  .panels-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .subjects-hero {
+    padding: 32px 16px 50px;
+  }
+
+  .subjects-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .subjects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subjects-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* =========================================================
+    SUBJECTS PAGE 
+   - Feel free to adjust styles in this block as needed
+   ========================================================= */
 
 .subjects-main {
   background-color: var(--bg-light);
 }
 
 .subjects-hero {
-  max-width: 1100px;
-  margin: 0 auto;
   padding: 50px 20px 70px;
 }
 
@@ -389,7 +483,6 @@ footer p {
 }
 
 /* subject cards grid */
-
 .subjects-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -415,46 +508,19 @@ footer p {
   color: #3d3d3d;
 }
 
-/* ================================
-   RESPONSIVE LAYOUT
-=================================== */
+/* =========================================================
+    FLASHCARDS PAGE
+   - Feel free to adjust styles in this block as needed
+   ========================================================= */
 
-@media (max-width: 900px) {
-  .subjects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+/* Example structure 
+/*
+.flashcards-main { }
 
-@media (max-width: 650px) {
-  .subjects-hero {
-    padding: 32px 16px 50px;
-  }
+.flashcards-grid { }
 
-  .subjects-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.flashcard-card { }
 
-  .subjects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .subjects-title {
-    font-size: 1.8rem;
-  }
-}
-
-.form-errors {
-  display: none;
-  background-color: #ffe6e6;
-  color: #8b0000;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 15px;
-  font-size: 0.95rem;
-}
-
-.form-errors p {
-  margin: 4px 0;
-}
-
+.flashcard-front,
+.flashcard-back { }
+*/

@@ -1,4 +1,4 @@
-<!--  
+<!--   
   Author: Sydney Stalker
   Class: CST 336 - Internet Programming
   Date: 12/18/2025
@@ -29,37 +29,126 @@
 
             <form id="registerForm" action="/register" method="POST" class="auth-form">
 
+                <!-- Username -->
                 <label for="username" class="auth-label">Username:</label>
                 <input 
                     type="text" 
                     id="username" 
                     name="username"
                     class="auth-input"
+                    required
                 >
 
+                <!-- Email -->
                 <label for="email" class="auth-label">Email:</label>
                 <input 
                     type="email"
                     id="email" 
                     name="email"
                     class="auth-input"
+                    required
                 >
 
+                <!-- Phone Number -->
+                <label for="phoneNumber" class="auth-label">Phone Number (optional):</label>
+                <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    class="auth-input"
+                    placeholder="555-555-5555"
+                >
+
+                <!-- Profile Picture URL -->
+                <label for="profilePicture" class="auth-label">Profile Picture URL (optional):</label>
+                <input
+                    type="url"
+                    id="profilePicture"
+                    name="profilePicture"
+                    class="auth-input"
+                    placeholder="https://example.com/my-photo.jpg"
+                >
+
+                <!-- Grade (Select) -->
+                <label for="grade" class="auth-label">Grade:</label>
+                <select
+                    id="grade"
+                    name="grade"
+                    class="auth-input"
+                    required
+                >
+                    <option value="">-- Select Grade --</option>
+                    <option value="Kindergarten">Kindergarten</option>
+                    <option value="1st Grade">1st Grade</option>
+                    <option value="2nd Grade">2nd Grade</option>
+                    <option value="3rd Grade">3rd Grade</option>
+                    <option value="4th Grade">4th Grade</option>
+                    <option value="5th Grade">5th Grade</option>
+                    <option value="6th Grade">6th Grade</option>
+                    <option value="7th Grade">7th Grade</option>
+                    <option value="8th Grade">8th Grade</option>
+                    <option value="9th Grade">9th Grade (Freshman)</option>
+                    <option value="10th Grade">10th Grade (Sophomore)</option>
+                    <option value="11th Grade">11th Grade (Junior)</option>
+                    <option value="12th Grade">12th Grade (Senior)</option>
+                    <option value="College Freshman">College Freshman</option>
+                    <option value="College Sophomore">College Sophomore</option>
+                    <option value="College Junior">College Junior</option>
+                    <option value="College Senior">College Senior</option>
+                </select>
+
+                <!-- User Type (Radio Buttons) -->
+                <fieldset class="auth-fieldset">
+                    <legend class="auth-label">I am a:</legend>
+                    <div class="auth-radio-group">
+                        <label>
+                            <input type="radio" name="userType" value="student" checked>
+                            Student
+                        </label>
+                        <label>
+                            <input type="radio" name="userType" value="parent">
+                            Parent
+                        </label>
+                        <label>
+                            <input type="radio" name="userType" value="teacher">
+                            Teacher
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Password -->
                 <label for="password" class="auth-label">Password:</label>
                 <input 
                     type="password" 
                     id="password" 
                     name="password"
                     class="auth-input"
+                    required
                 >
 
+                <!-- Confirm Password -->
                 <label for="confirmPassword" class="auth-label">Confirm Password:</label>
                 <input 
                     type="password" 
                     id="confirmPassword" 
                     name="confirmPassword"
                     class="auth-input"
+                    required
                 >
+
+                <!-- Terms (Checkbox) -->
+                <div class="auth-checkbox-row">
+                    <label class="auth-checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="agreeTerms" 
+                            name="agreeTerms" 
+                            value="yes"
+                            required
+                        >
+                        I agree to the StudySmart Terms of Use.
+                    </label>
+                </div>
 
                 <button type="submit" class="btn auth-btn">Register</button>
 

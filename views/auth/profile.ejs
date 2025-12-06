@@ -1,4 +1,4 @@
-<!--   
+<!--    
   Author: Sydney Stalker
   Class: CST 336 – Internet Programming
   Date: 12/18/2025
@@ -19,14 +19,131 @@
 
     <%- include('../partials/header'); %>
 
-    <main class="container">
+    <main class="container profile-main">
 
-        <h1>Your Profile</h1>
+        <h1 class="profile-title">Your Profile</h1>
+
+        <!-- Optional message area for success/error -->
+        <div id="profileMessage" class="form-errors">
+            <% if (typeof message !== 'undefined' && message) { %>
+                <p><%= message %></p>
+            <% } %>
+        </div>
 
         <div class="card profile-card">
 
-            <p><strong>Username:</strong> <%= username %></p>
-            <p><strong>Email:</strong> Not Available</p>
+            <!-- Left side: Summary / Avatar -->
+            <section class="profile-summary">
+                <h2 class="profile-subtitle">Account Overview</h2>
+
+                <div class="profile-avatar-wrapper">
+                    <% if (user && user.profilePicture) { %>
+                        <img 
+                            src="<%= user.profilePicture %>" 
+                            alt="Profile picture for <%= user.username %>" 
+                            class="profile-avatar"
+                        >
+                    <% } else { %>
+                        <div class="profile-avatar placeholder-avatar">
+                            <span><%= user ? user.username.charAt(0).toUpperCase() : '?' %></span>
+                        </div>
+                    <% } %>
+                </div>
+
+                <p><strong>Username:</strong> <%= user ? user.username : username %></p>
+                <p><strong>Email:</strong> <%= user && user.email ? user.email : 'Not set' %></p>
+                <p><strong>Phone:</strong> <%= user && user.phoneNumber ? user.phoneNumber : 'Not set' %></p>
+                <p><strong>Grade:</strong> <%= user && user.grade ? user.grade : 'Not set' %></p>
+                <p><strong>Role:</strong> <%= user && user.role ? user.role : 'user' %></p>
+                <p><strong>Status:</strong> <%= user && user.status ? user.status : 'active' %></p>
+                <p><strong>Last Login:</strong> <%= user && user.lastLogin ? user.lastLogin : 'N/A' %></p>
+                <p><strong>Account Created:</strong> <%= user && user.createdAt ? user.createdAt : 'N/A' %></p>
+
+            </section>
+
+            <!-- Right side: Editable form -->
+            <section class="profile-edit">
+                <h2 class="profile-subtitle">Edit Profile</h2>
+
+                <form 
+                    id="profileForm" 
+                    action="/profile" 
+                    method="POST" 
+                    class="profile-form"
+                >
+                    <!-- Hidden primary key -->
+                    <input 
+                        type="hidden" 
+                        name="userId" 
+                        value="<%= user ? user.userId : '' %>"
+                    >
+
+                    <!-- Email -->
+                    <label for="email" class="auth-label">Email:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="auth-input"
+                        value="<%= user && user.email ? user.email : '' %>"
+                        required
+                    >
+
+                    <!-- Phone Number -->
+                    <label for="phoneNumber" class="auth-label">Phone Number:</label>
+                    <input
+                        type="tel"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        class="auth-input"
+                        placeholder="555-555-5555"
+                        value="<%= user && user.phoneNumber ? user.phoneNumber : '' %>"
+                    >
+
+                    <!-- Profile Picture URL -->
+                    <label for="profilePicture" class="auth-label">Profile Picture URL:</label>
+                    <input
+                        type="url"
+                        id="profilePicture"
+                        name="profilePicture"
+                        class="auth-input"
+                        placeholder="https://example.com/my-photo.jpg"
+                        value="<%= user && user.profilePicture ? user.profilePicture : '' %>"
+                    >
+
+                    <!-- Grade (Select) -->
+                    <label for="grade" class="auth-label">Grade:</label>
+                    <select
+                        id="grade"
+                        name="grade"
+                        class="auth-input"
+                        required
+                    >
+                        <option value="">-- Select Grade --</option>
+                        <option value="Kindergarten" <%= user && user.grade === 'Kindergarten' ? 'selected' : '' %>>Kindergarten</option>
+                        <option value="1st Grade" <%= user && user.grade === '1st Grade' ? 'selected' : '' %>>1st Grade</option>
+                        <option value="2nd Grade" <%= user && user.grade === '2nd Grade' ? 'selected' : '' %>>2nd Grade</option>
+                        <option value="3rd Grade" <%= user && user.grade === '3rd Grade' ? 'selected' : '' %>>3rd Grade</option>
+                        <option value="4th Grade" <%= user && user.grade === '4th Grade' ? 'selected' : '' %>>4th Grade</option>
+                        <option value="5th Grade" <%= user && user.grade === '5th Grade' ? 'selected' : '' %>>5th Grade</option>
+                        <option value="6th Grade" <%= user && user.grade === '6th Grade' ? 'selected' : '' %>>6th Grade</option>
+                        <option value="7th Grade" <%= user && user.grade === '7th Grade' ? 'selected' : '' %>>7th Grade</option>
+                        <option value="8th Grade" <%= user && user.grade === '8th Grade' ? 'selected' : '' %>>8th Grade</option>
+                        <option value="9th Grade" <%= user && user.grade === '9th Grade' ? 'selected' : '' %>>9th Grade (Freshman)</option>
+                        <option value="10th Grade" <%= user && user.grade === '10th Grade' ? 'selected' : '' %>>10th Grade (Sophomore)</option>
+                        <option value="11th Grade" <%= user && user.grade === '11th Grade' ? 'selected' : '' %>>11th Grade (Junior)</option>
+                        <option value="12th Grade" <%= user && user.grade === '12th Grade' ? 'selected' : '' %>>12th Grade (Senior)</option>
+                        <option value="College Freshman" <%= user && user.grade === 'College Freshman' ? 'selected' : '' %>>College Freshman</option>
+                        <option value="College Sophomore" <%= user && user.grade === 'College Sophomore' ? 'selected' : '' %>>College Sophomore</option>
+                        <option value="College Junior" <%= user && user.grade === 'College Junior' ? 'selected' : '' %>>College Junior</option>
+                        <option value="College Senior" <%= user && user.grade === 'College Senior' ? 'selected' : '' %>>College Senior</option>
+                    </select>
+
+                    <button type="submit" class="btn auth-btn">Save Changes</button>
+
+                </form>
+
+            </section>
 
         </div>
 
