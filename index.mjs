@@ -32,7 +32,6 @@
 //USERNAME: admin
 //PASSWORD: secret
 
-
 import express from 'express';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
@@ -64,7 +63,9 @@ const pool = mysql.createPool({
   waitForConnections: true,
 });
 
-//Middleware
+////////////////////////////////////////////////// SYDNEY'S ROUTES///////////////////////////////////////////////////////
+
+//Middleware - Sydney
 function isAuthenticated(req, res, next) {
   if (!req.session.authenticated) {
     return res.redirect("/login");
@@ -72,31 +73,40 @@ function isAuthenticated(req, res, next) {
   next();
 }
 
-// ROUTES
+// HOME PAGE – Sydney
+app.get('/', isAuthenticated, async (req, res) => {
+  const response = await fetch("https://zenquotes.io/api/random");
+  const data = await response.json();
 
-app.get('/', isAuthenticated, (req, res) => {
-  res.render('index', { username: req.session.username });
+  res.render('index', {
+    username: req.session.username,
+    quote: data[0].q,
+    author: data[0].a
+  });
 });
 
-// Login form
+// Register form (hiding the nav and don't need to be logged-in)- Sydney 
+app.get('/register', (req, res) => {
+  if (req.session.authenticated) {
+    return res.redirect('/');
+  }
+  res.render('auth/register', { hideNav: true });
+});
+
+// Profile page -Sydney
+app.get('/profile', isAuthenticated, (req, res) => {
+  res.render('auth/profile', { username: req.session.username });
+});
+
+// Login form - Sydney
 app.get('/login', (req, res) => {
   if (req.session.authenticated) {
     return res.redirect('/');
   }
-  res.render('auth/login');
+  res.render('auth/login', { hideNav: true });
 });
 
-// profile page
-app.get('/myProfile', isAuthenticated, (req, res) => {
-  res.render('auth/profile', { username: req.session.username });
-});
-
-app.get('/register', (req, res) => {
-  res.render('auth/register');
-});
-
-
-// Login 
+// Login  - Sydney
 app.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -130,17 +140,14 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Profile page 
-app.get('/myProfile', isAuthenticated, (req, res) => {
-  res.render('profile', { username: req.session.username });
-});
-
-// Logout 
+// Logout -Sydney
 app.get('/logout', isAuthenticated, (req, res) => {
   req.session.destroy(() => {
     res.redirect('/login');
   });
 });
+//////////////////////////////////////////////////////END OF SYDNEY'S ROUTES//////////////////////////////////////
+
 
 // SUBJECT ROUTES
 // List all subjects

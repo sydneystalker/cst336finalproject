@@ -1,0 +1,38 @@
+<!--   
+  Author: Sydney Stalker
+  Class: CST 336 – Internet Programming
+  Date: 12/18/2025
+  Assignment: Final Project
+  File: profile.ejs
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySmart – Profile</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <%- include('../partials/header'); %>
+
+    <main class="container">
+
+        <h1>Your Profile</h1>
+
+        <div class="card profile-card">
+
+            <p><strong>Username:</strong> <%= username %></p>
+            <p><strong>Email:</strong> Not Available</p>
+
+        </div>
+
+    </main>
+
+    <%- include('../partials/footer'); %>
+
+</body>
+</html>

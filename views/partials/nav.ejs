@@ -1,15 +1,27 @@
-  <!-- 
+<!--  
   Author: Sydney Stalker
   Class: CST 336 - Internet Programming
   Date: 12/18/2025
   Assignment: Final Project
   File: nav.ejs 
-  -->
-  
+-->
+
 <nav class="main-nav">
   <a href="/">Home</a>
   <a href="/subjects">Subjects</a>
   <a href="/flashcards">Flashcards</a>
-  <!-- <a href="/sessions">Study Sessions</a> -->
+
+  <div class="nav-dropdown">
+
+    <input type="checkbox" id="account-toggle" class="nav-toggle">
+
+    <label for="account-toggle" class="nav-dropbtn">Account ▾</label>
+
+    <div class="nav-dropdown-content">
+      <a href="/profile">Profile</a>
+      <a href="/logout">Logout</a>
+    </div>
+
+  </div>
 </nav>
 

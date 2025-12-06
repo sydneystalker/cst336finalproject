@@ -9,7 +9,11 @@
 <header class="site-header">
   <div class="header-content">
     <h1 class="site-title">StudySmart</h1>
-    <%- include('nav'); %>
+   
+    <% if (typeof hideNav === 'undefined' || !hideNav) { %>
+      <%- include('nav'); %>
+    <% } %>
+
   </div>
 </header>
 

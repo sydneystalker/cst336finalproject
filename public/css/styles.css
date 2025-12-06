@@ -93,34 +93,96 @@ h1, h2, h3 {
    NAVIGATION 
 =================================== */
 
-nav {
+nav.main-nav {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 22px;
 
     background-color: var(--blue-2);
     padding: 12px 0;
 }
 
-nav a {
+/* Regular nav links */
+nav.main-nav a {
     color: var(--text-light);
     text-decoration: none;
     padding: 8px 16px;
-    font-size: 1.1em;
+    font-size: 1.1rem;
 
-    border-radius: 8px;
-    transition: 0.25s ease-in-out;
+    border-radius: 6px;
 }
 
-nav a:hover {
+nav.main-nav a:hover {
     background-color: var(--aqua-1);
-    transform: scale(1.08);
 }
 
-nav a.active {
+nav.main-nav a.active {
     background-color: var(--blue-1);
     border-bottom: 3px solid var(--green-1);
 }
+
+/* ================================
+   SIMPLE CLICK DROPDOWN
+=================================== */
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hidden checkbox */
+.nav-toggle {
+    display: none;
+}
+
+/* Dropdown button */
+.nav-dropbtn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    padding: 8px 16px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.nav-dropbtn:hover {
+    background-color: var(--aqua-1);
+}
+
+/* Dropdown panel */
+.nav-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 110%;
+    right: 0;
+
+    background-color: var(--blue-2);
+    border-radius: 6px;
+    min-width: 140px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    z-index: 20;
+}
+
+/* Items */
+.nav-dropdown-content a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-light);
+}
+
+.nav-dropdown-content a:hover {
+    background-color: var(--aqua-1);
+}
+
+/* When checkbox is checked — show dropdown */
+.nav-toggle:checked ~ .nav-dropdown-content {
+    display: block;
+}
+
+
 
 /* ================================
    MAIN CONTENT
@@ -381,4 +443,5 @@ footer p {
     font-size: 1.8rem;
   }
 }
+
 

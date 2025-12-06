@@ -1,9 +1,62 @@
-<form action="/login" method="POST">
-    Username:
-    <input type="text" name = "username"> <br>
+<!--  
+  Author: Sydney Stalker
+  Class: CST 336 - Internet Programming
+  Date: 12/18/2025
+  Assignment: Final Project
+  File: login.ejs
+-->
 
-    Password:
-    <input type="password" name = "password"> <br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySmart – Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-    <button>Login</button>
-</form>
+<body>
+
+    <%- include('../partials/header'); %>
+
+    <main class="container auth-main">
+
+        <h1 class="auth-title">Login</h1>
+
+        <div class="card auth-card">
+
+            <form action="/login" method="POST" class="auth-form">
+
+                <label for="username" class="auth-label">Username:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    required 
+                    class="auth-input">
+
+                <label for="password" class="auth-label">Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    class="auth-input">
+
+                <button type="submit" class="btn auth-btn">Login</button>
+
+            </form>
+
+        </div>
+
+        <p class="auth-footer-text">
+            Don’t have an account? 
+            <a href="/register" class="auth-link">Register here</a>.
+        </p>
+
+    </main>
+
+    <%- include('../partials/footer'); %>
+
+</body>
+</html>
