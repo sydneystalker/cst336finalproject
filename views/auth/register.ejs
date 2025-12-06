@@ -1,0 +1,82 @@
+<!--  
+  Author: Sydney Stalker
+  Class: CST 336 - Internet Programming
+  Date: 12/18/2025
+  Assignment: Final Project
+  File: register.ejs
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySmart – Register</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <%- include('../partials/header'); %>
+
+    <main class="container auth-main">
+
+        <h1 class="auth-title">Create an Account</h1>
+
+        <div id="registerErrors" class="form-errors"></div>
+
+        <div class="card auth-card">
+
+            <form id="registerForm" action="/register" method="POST" class="auth-form">
+
+                <label for="username" class="auth-label">Username:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username"
+                    class="auth-input"
+                >
+
+                <label for="email" class="auth-label">Email:</label>
+                <input 
+                    type="email"
+                    id="email" 
+                    name="email"
+                    class="auth-input"
+                >
+
+                <label for="password" class="auth-label">Password:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password"
+                    class="auth-input"
+                >
+
+                <label for="confirmPassword" class="auth-label">Confirm Password:</label>
+                <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    name="confirmPassword"
+                    class="auth-input"
+                >
+
+                <button type="submit" class="btn auth-btn">Register</button>
+
+            </form>
+
+        </div>
+
+        <p class="auth-footer-text">
+            Already have an account?
+            <a href="/login" class="auth-link">Login here</a>.
+        </p>
+
+    </main>
+
+    <%- include('../partials/footer'); %>
+
+    <script src="/js/formValidation.js"></script>
+
+</body>
+</html>

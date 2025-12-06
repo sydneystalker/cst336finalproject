@@ -444,4 +444,17 @@ footer p {
   }
 }
 
+.form-errors {
+  display: none;
+  background-color: #ffe6e6;
+  color: #8b0000;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.form-errors p {
+  margin: 4px 0;
+}
 

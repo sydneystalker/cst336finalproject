@@ -1,4 +1,4 @@
-<!--  
+<!--   
   Author: Sydney Stalker
   Class: CST 336 - Internet Programming
   Date: 12/18/2025
@@ -23,25 +23,27 @@
 
         <h1 class="auth-title">Login</h1>
 
+        <div id="loginErrors" class="form-errors"></div>
+
         <div class="card auth-card">
 
-            <form action="/login" method="POST" class="auth-form">
+            <form id="loginForm" action="/login" method="POST" class="auth-form">
 
                 <label for="username" class="auth-label">Username:</label>
                 <input 
                     type="text" 
                     id="username" 
                     name="username" 
-                    required 
-                    class="auth-input">
+                    class="auth-input"
+                >
 
                 <label for="password" class="auth-label">Password:</label>
                 <input 
                     type="password" 
                     id="password" 
                     name="password" 
-                    required 
-                    class="auth-input">
+                    class="auth-input"
+                >
 
                 <button type="submit" class="btn auth-btn">Login</button>
 
@@ -57,6 +59,8 @@
     </main>
 
     <%- include('../partials/footer'); %>
+
+    <script src="/js/formValidation.js"></script>
 
 </body>
 </html>

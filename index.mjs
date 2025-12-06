@@ -38,6 +38,7 @@ import bcrypt from 'bcrypt';
 import session from 'express-session';
 
 const app = express();
+const saltRounds = 10;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -85,7 +86,7 @@ app.get('/', isAuthenticated, async (req, res) => {
   });
 });
 
-// Register form (hiding the nav and don't need to be logged-in)- Sydney 
+// Register GET - Sydney 
 app.get('/register', (req, res) => {
   if (req.session.authenticated) {
     return res.redirect('/');
@@ -93,12 +94,39 @@ app.get('/register', (req, res) => {
   res.render('auth/register', { hideNav: true });
 });
 
+// Register POST - Sydney
+app.post('/register', async (req, res) => {
+  const { username, email, password, confirmPassword } = req.body;
+
+  if (!username || !email || !password || password !== confirmPassword) {
+    return res.redirect('/register');
+  }
+
+  try {
+    const hashed = await bcrypt.hash(password, saltRounds);
+
+    const sql = `
+      INSERT INTO admin (username, password, email)
+      VALUES (?, ?, ?)
+    `;
+    await pool.query(sql, [username, hashed, email]);
+
+    req.session.authenticated = true;
+    req.session.username = username;
+
+    res.redirect('/');
+  } catch (err) {
+    console.error("Registration error:", err);
+    res.redirect('/register');
+  }
+});
+
 // Profile page -Sydney
 app.get('/profile', isAuthenticated, (req, res) => {
   res.render('auth/profile', { username: req.session.username });
 });
 
-// Login form - Sydney
+// Login get - Sydney
 app.get('/login', (req, res) => {
   if (req.session.authenticated) {
     return res.redirect('/');
@@ -106,7 +134,7 @@ app.get('/login', (req, res) => {
   res.render('auth/login', { hideNav: true });
 });
 
-// Login  - Sydney
+// Login  POST - Sydney
 app.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
