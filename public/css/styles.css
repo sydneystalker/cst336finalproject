@@ -27,12 +27,21 @@
   --bg-light: #f9fff6;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-light);
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--text-dark);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Shared centered layout */
@@ -168,6 +177,7 @@ nav.main-nav a.active {
 /* ---------- MAIN CONTENT & CARDS ---------- */
 
 main {
+  flex: 1 0 auto;
   padding: 20px 0;
 }
 

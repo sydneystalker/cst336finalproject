@@ -76,15 +76,45 @@ function isAuthenticated(req, res, next) {
 
 // HOME PAGE – Sydney
 app.get('/', isAuthenticated, async (req, res) => {
-  const response = await fetch("https://zenquotes.io/api/random");
-  const data = await response.json();
+  const userId = req.session.userId;
+
+  // API to display random quote on home page
+  let quoteText = "";
+  let quoteAuthor = "";
+
+  try {
+    const response = await fetch("https://zenquotes.io/api/random");
+    const data = await response.json();
+    quoteText = data[0]?.q || "";
+    quoteAuthor = data[0]?.a || "";
+  } catch (err) {
+    console.error("Quote API error:", err);
+  }
+
+  // Display stats on home page (waiting on flashcards to update the stats) ---
+  let subjectCount = 0;
+  let flashcardCount = 0; // keeping for now so the EJS doesn't break
+
+  try {
+    const [subjectRows] = await pool.query(
+      "SELECT COUNT(*) AS count FROM subjects WHERE user_id = ?",
+      [userId]
+    );
+    subjectCount = subjectRows[0].count;
+  } catch (err) {
+    console.error("Subject stats query error:", err);
+  }
 
   res.render('index', {
     username: req.session.username,
-    quote: data[0].q,
-    author: data[0].a
+    quote: quoteText,
+    author: quoteAuthor,
+    subjectCount,
+    flashcardCount
   });
 });
+
+
 
 // Register GET - Sydney 
 app.get('/register', (req, res) => {
@@ -182,7 +212,7 @@ app.post('/profile', isAuthenticated, async (req, res) => {
     grade
   } = req.body;
 
-  const username = req.session.username;  // identify user by session username
+  const username = req.session.username;
 
   // Basic validation
   if (!email || !grade) {
@@ -271,6 +301,7 @@ app.get('/logout', isAuthenticated, (req, res) => {
 });
 //////////////////////////////////////////////////////END OF SYDNEY'S ROUTES//////////////////////////////////////
 
+//////////////////////////////////////////////////////THOMAS' ROUTES/////////////////////////////////////////////
 
 // SUBJECT ROUTES
 // List all subjects
@@ -328,6 +359,9 @@ app.get("/subjects/delete/:id", isAuthenticated, async(req, res) => {
     res.redirect("/subjects");
 })
 
+//////////////////////////////////////////////////////END OF THOMAS' ROUTES/////////////////////////////////////////////
+
+//////////////////////////////////////////////////////BRANDON'S ROUTES/////////////////////////////////////////////////
 // FLASHCARD ROUTES
 // List flashcards
 app.get("/flashcards", isAuthenticated, (req, res) => {
@@ -339,6 +373,8 @@ app.get("/flashcards/new", isAuthenticated, (req, res) => {
     res.render("flashcards/new");
 });
 
+
+//////////////////////////////////////////////////////END OF BRANDON'S ROUTES/////////////////////////////////////////////
 
 //dbTest
 app.get("/dbTest", async(req, res) => {
