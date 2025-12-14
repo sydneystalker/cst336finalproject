@@ -20,12 +20,31 @@
 
     <main class="subjects-main">
         <section class="subjects-hero container">
-
             <h1 class="subjects-title">Add New Subject</h1>
-
-  
-
         </section>
+        <form class="subject-form" action="/subjects/new" method="POST">
+            <div class="subject-form-header">
+                <div>
+                    <span>Category:</span>
+                    <select name="category">
+                        <option value="English">English</option>
+                        <option value="Math">Math</option>
+                        <option value="Science">Science</option>
+                        <option value="Social Studies">Social Studies</option>
+                        <option value="Physical Education">Physical Ed</option>
+                        <option value="Art">Art</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div><span>Subject Name:</span> <input type="text" name="subjectName"></div>
+                <div><span>End Date:</span> <input type="date" name="endDate"></div>
+            </div>
+            <div class="subject-form-body">
+                <span>Description:</span> <textarea name="subjectDescription"></textarea>
+            </div>
+            <button>Add Subject</button>
+        </form>
     </main>
 
     <%- include('../partials/footer'); %>

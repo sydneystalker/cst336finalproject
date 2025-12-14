@@ -56,10 +56,10 @@ app.use(express.urlencoded({extended:true}));
 // Setting up database connection pool
 //This is set up to Sydney's for now at least, for testing test
 const pool = mysql.createPool({
-  host: "w1h4cr5sb73o944p.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-  user: "f22soef3w721uqas",
-  password: "w2rrbwa0a7q112xi",
-  database: "qwfpbrplqjdhpu25",
+  host: "rtzsaka6vivj2zp1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+  user: "uouzm6x4rrhvncyk",
+  password: "cwvaniku2qtf1rxg",
+  database: "f8jzk2c43t9ennzr",
   connectionLimit: 10,
   waitForConnections: true,
 });
@@ -251,7 +251,8 @@ app.post('/login', async (req, res) => {
 
     if (match) {
       req.session.authenticated = true;
-      req.session.username = rows[0].username; 
+      req.session.username = rows[0].username;
+      req.session.userId = rows[0].userId;
       return res.redirect('/');                
     } else {
       return res.redirect('/login');
@@ -273,8 +274,12 @@ app.get('/logout', isAuthenticated, (req, res) => {
 
 // SUBJECT ROUTES
 // List all subjects
-app.get("/subjects", isAuthenticated, (req, res) => {
-    res.render("subjects/list");
+app.get("/subjects", isAuthenticated, async(req, res) => {
+    let sql = `SELECT * 
+                        FROM subjects 
+                        WHERE user_id = ?`;
+    const [rows] = await pool.query(sql, [req.session.userId]);
+    res.render("subjects/list", {subjects: rows});
 });
 
 // New subject form
@@ -282,10 +287,46 @@ app.get("/subjects/new", isAuthenticated, (req, res) => {
     res.render("subjects/new");
 });
 
+app.post("/subjects/new", isAuthenticated, async(req, res) => {
+    let sql = `INSERT INTO subjects (user_id, subject_category, subject_name, subject_desc, target_date)
+                        VALUES (?, ?, ?, ?, ?)`;
+    const [rows] = await pool.query(sql, [req.session.userId,
+                                            req.body.category,
+                                            req.body.subjectName,
+                                            req.body.subjectDescription,
+                                            req.body.endDate]);
+    res.redirect("/subjects");
+})
+
 // Edit subject form
-app.get("/subjects/edit/:id", isAuthenticated, (req, res) => {
-    res.render("subjects/edit", { id: req.params.id });
+app.get("/subjects/edit/:id", isAuthenticated, async(req, res) => {
+    let categories = ['English', 'Math', 'Science', 'Social Studies', 'Physical Education', 'Art', 'Technical', 'Other'];
+    let sql = `SELECT subject_id, subject_name, subject_category, subject_desc, DATE_FORMAT(target_date, '%Y-%m-%d') formatted_date FROM subjects WHERE subject_id = ?`;
+    const [rows] = await pool.query(sql, [req.params.id]);
+    res.render("subjects/edit", { categories, subject: rows[0] });
 });
+
+app.post("/subjects/edit", isAuthenticated, async(req, res) => {
+    let sql = `UPDATE subjects 
+                        SET subject_name = ?, 
+                            subject_category = ?, 
+                            subject_desc = ?,
+                            target_date = ?
+                        WHERE subject_id = ?;`;
+    let params = [req.body.subjectName,
+                            req.body.category,
+                            req.body.subjectDescription,
+                            req.body.endDate,
+                            req.body.subjectId];
+    const [rows] = await pool.query(sql, params);
+    res.redirect("/subjects");
+})
+
+app.get("/subjects/delete/:id", isAuthenticated, async(req, res) => {
+    let sql = `DELETE FROM subjects WHERE subject_id = ?`;
+    const [rows] = await pool.query(sql, [req.params.id]);
+    res.redirect("/subjects");
+})
 
 // FLASHCARD ROUTES
 // List flashcards

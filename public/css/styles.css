@@ -16,7 +16,7 @@
   --green-3: #99D98C;
   --green-4: #76C893;
   --green-5: #52B69A;
-  --aqua-1:  #34A0A4;
+  --aqua-1: #88c3c5;
   --aqua-2:  #168AAD;
   --blue-1:  #1A759F;
   --blue-2:  #1E6091;
@@ -467,7 +467,7 @@ footer p {
 }
 
 .subjects-hero {
-  padding: 50px 20px 70px;
+  padding: 16px 20px 16px;
 }
 
 .subjects-header {
@@ -484,28 +484,126 @@ footer p {
 
 /* subject cards grid */
 .subjects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 1200px;
+    gap: 20px;
+    padding: 20px;
+    justify-self: center;
 }
 
 .subject-card {
   background-color: #ffffff;
   border-radius: 14px;
-  padding: 22px 20px;
+  padding: 18px 20px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    width: 350px;
 }
 
 .subject-title {
   font-size: 1.3rem;
   margin-bottom: 8px;
   color: var(--blue-3);
+    text-align: center;
 }
 
 .subject-desc {
-  margin: 0;
-  line-height: 1.5;
-  color: #3d3d3d;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    line-height: 1.5;
+    color: #3d3d3d;
+}
+
+.subject-desc span {
+    text-align: center;
+}
+
+.subject-form {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    gap: 10px;
+    justify-self: center;
+}
+
+.subject-form-header {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.subject-form-body textarea{
+    width: 100%;
+    resize: vertical;
+    height: 120px;
+    padding: 16px;
+}
+
+.subject-form input, .subject-form select {
+    font-size: 1.25rem;
+}
+
+.subject-form button {
+    width: 125px;
+    font-size: 1.25rem;
+}
+
+.card-counts {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.count-type {
+    background-color: var(--aqua-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px;
+    width: 45%;
+    border-radius: 10px;
+}
+
+.count-value {
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    font-size: 1.25rem;
+    border-radius: 10px;
+}
+
+.row-format {
+    display: flex;
+    flex-direction: row;
+}
+
+.subject-links {
+    padding: 6px;
+    justify-content: center;
+    gap: 30px;
+}
+
+.subject-links a:hover {
+    font-size: 1.1rem;
+}
+
+.subject-link {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.update-link {
+    color: royalblue;
+}
+
+.delete-link {
+    color: darkred;
 }
 
 /* =========================================================

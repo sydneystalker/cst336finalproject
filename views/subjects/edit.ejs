@@ -21,9 +21,27 @@
     <main class="container">
         <h1>Edit Subject</h1>
 
-        <div class="card">
-            <p>This is a placeholder for this page's content.</p>
-        </div>
+        <form class="subject-form" action="/subjects/edit" method="POST">
+            <input type="hidden" name="subjectId" value=<%- subject.subject_id %>>
+            <div class="subject-form-header">
+                <div>
+                    <span>Category:</span>
+                    <select name="category">
+                        <% for(i = 0; i < categories.length; i++) { %>
+                            <option value="<%=categories[i]%>"
+                                    <% if (categories[i]==subject.subject_category) { %>selected<% } %>>
+                                <%=categories[i]%></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div><span>Subject Name:</span> <input type="text" name="subjectName" value="<%=subject.subject_name%>"></div>
+                <div><span>End Date:</span> <input type="date" name="endDate" value="<%=subject.formatted_date%>"></div>
+            </div>
+            <div class="subject-form-body">
+                <span>Description:</span> <textarea name="subjectDescription"><%=subject.subject_desc%></textarea>
+            </div>
+            <button>Update Subject</button>
+        </form>
     </main>
 
     <%- include('../partials/footer'); %>

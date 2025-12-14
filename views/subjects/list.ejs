@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudySmart – Subjects</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete,edit" />
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -30,7 +31,25 @@
                     Add Subject
                 </a>
             </header>
+        </section>
 
+        <section class="subjects-grid">
+            <% for(i = 0; i < subjects.length; i++) { %>
+                <div class="subject-card">
+                    <h3 class="subject-title"><%=subjects[i].subject_name%></h3>
+                    <div class="subject-desc">
+                        <div class="card-counts">
+                            <span class="count-type"><strong>Cards Learned:</strong> <span class="count-value"><%=subjects[i].cards_learned%></span></span>
+                            <span class="count-type"><strong>Total Cards:</strong> <span class="count-value"><%=subjects[i].total_cards%></span></span>
+                        </div>
+                        <span><strong>Targeted Completion Date:</strong> <%=subjects[i].target_date.toLocaleDateString()%></span>
+                        <div class="row-format subject-links">
+                            <a href="/subjects/edit/<%=subjects[i].subject_id%>" class="subject-link update-link">Edit<span class="material-symbols-outlined">edit</span></a>
+                            <a href="/subjects/delete/<%=subjects[i].subject_id%>" class="subject-link delete-link">Delete<span class="material-symbols-outlined">delete</span></a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
         </section>
 
     </main>
