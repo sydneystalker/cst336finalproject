@@ -1,0 +1,176 @@
+/* =========================================================
+   MODERN UI POLISH (Brandon)
+   Safe overrides only – does not break existing layouts
+   ========================================================= */
+
+/* ---------- GLOBAL SMOOTHING ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- LINKS ---------- */
+
+a {
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+a:hover {
+  transform: translateY(-1px);
+}
+
+/* ---------- BUTTON UPGRADE ---------- */
+
+button,
+input[type="submit"] {
+  background: linear-gradient(
+    135deg,
+    var(--aqua-2),
+    var(--blue-1)
+  );
+  color: var(--text-light);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* ---------- FORM INPUT MODERNIZATION ---------- */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cfdede;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--aqua-2);
+  box-shadow: 0 0 0 3px rgba(22,138,173,0.15);
+}
+
+/* ---------- TABLE MODERNIZATION (FLASHCARDS) ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+table th {
+  background-color: var(--blue-2);
+  color: var(--text-light);
+  text-align: left;
+  padding: 14px;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+table tr:hover {
+  background-color: #f3faf8;
+}
+
+/* ---------- FLASHCARD ACTION LINKS ---------- */
+
+.flashcards-main a,
+table a {
+  font-weight: 600;
+}
+
+/* ---------- CARD DEPTH BOOST ---------- */
+
+.card,
+.subject-card,
+.stat-card,
+.info-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover,
+.subject-card:hover,
+.stat-card:hover,
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+}
+
+/* ---------- NAVBAR POLISH ---------- */
+
+nav.main-nav {
+  backdrop-filter: blur(6px);
+}
+
+nav.main-nav a {
+  font-weight: 600;
+}
+
+/* ---------- FLASHCARD FORM SPACING ---------- */
+
+.flashcards-main form,
+.container form {
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* ---------- SMALL DETAILS ---------- */
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #e3e3e3;
+  margin: 30px 0;
+}
