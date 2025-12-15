@@ -1,3 +1,4 @@
+//////////////////////////STUDY MODE FLASH CARDs (BRANDON)//////////////////
 let currentIndex = 0;
 
 const flashcard = document.getElementById("flashcard");
