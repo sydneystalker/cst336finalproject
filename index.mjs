@@ -359,6 +359,27 @@ app.get("/subjects/delete/:id", isAuthenticated, async(req, res) => {
     res.redirect("/subjects");
 })
 
+app.get("/api/getCategories", isAuthenticated, async(req, res) => {
+    let sql = `SELECT DISTINCT subject_category FROM subjects WHERE user_id = ?`;
+    const [rows] = await pool.query(sql, [req.session.userId]);
+    console.log(rows);
+    res.send(rows);
+})
+
+app.get("/api/searchByCategory/:category", isAuthenticated, async(req, res) => {
+    if (req.params.category != 'All') {
+        let sql = `SELECT * FROM subjects WHERE subject_category = ? AND user_id = ?`;
+        const [rows] = await pool.query(sql, [req.params.category, req.session.userId]);
+        console.log(rows);
+        res.send(rows);
+    } else {
+        let sql = `SELECT * FROM subjects WHERE user_id = ?`;
+        const [rows] = await pool.query(sql, [req.session.userId]);
+        console.log(rows);
+        res.send(rows);
+    }
+})
+
 //////////////////////////////////////////////////////END OF THOMAS' ROUTES/////////////////////////////////////////////
 
 //////////////////////////////////////////////////////BRANDON'S ROUTES/////////////////////////////////////////////////

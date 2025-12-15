@@ -25,6 +25,9 @@
             <header class="subjects-header">
                 <h1 class="subjects-title">Subjects List</h1>
 
+                <!-- For filter option -->
+                <span>Filter by category:</span> <span id="subjectFilter"></span>
+
                 <!-- Add Subject button -->
                 <a href="/subjects/new" class="btn btn-primary">
                     Add Subject
@@ -54,6 +57,6 @@
     </main>
 
     <%- include('../partials/footer'); %>
-
+    <script src="/js/subjectScript.js"></script>
 </body>
 </html>
