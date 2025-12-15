@@ -111,6 +111,31 @@ try {
 } catch (err) {
   console.error("Flashcard stats query error:", err);
 }
+
+
+// BRANDON – TOGGLE LEARNED STATUS ( UPDATE)
+app.post("/flashcards/:cardId/toggle-learned", isAuthenticated, async (req, res) => {
+  const cardId = req.params.cardId;
+  const subjectId = req.body.subject_id;
+
+  const sql = `
+    UPDATE flashcards
+    SET is_learned = NOT is_learned,
+        last_reviewed = NOW()
+    WHERE card_id = ?
+  `;
+
+  try {
+    await pool.query(sql, [cardId]);
+    res.redirect(`/subjects/${subjectId}/flashcards`);
+  } catch (err) {
+    console.error("Toggle learned error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
 /* ===== END BRANDON   ===== */
 
 

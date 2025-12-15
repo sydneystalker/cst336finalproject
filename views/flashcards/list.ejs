@@ -37,7 +37,7 @@
   <tr>
     <th>Term</th>
     <th>Difficulty</th>
-    <th>Important</th>
+    <!-- REMOVED: Important column -->
     <th>Learned</th>
     <th>Actions</th>
   </tr>
@@ -46,10 +46,12 @@
     <tr>
       <td><%= card.term %></td>
       <td><%= card.difficulty %></td>
-      <td><%= card.is_starred ? '⭐' : '' %></td>
+
+      <!-- REMOVED: Important cell -->
 
       <td>
-        <form action="/flashcards/<%= card.card_id %>/update" method="post">
+        <form action="/flashcards/<%= card.card_id %>/toggle-learned" method="post">
+
           <input type="hidden" name="subject_id" value="<%= subjectId %>">
 
           <input
@@ -77,6 +79,7 @@
     </tr>
   <% }) %>
 </table>
+
 
 <br>
 <a href="/subjects">⬅ Back to Subjects</a>
