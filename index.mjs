@@ -362,16 +362,217 @@ app.get("/subjects/delete/:id", isAuthenticated, async(req, res) => {
 //////////////////////////////////////////////////////END OF THOMAS' ROUTES/////////////////////////////////////////////
 
 //////////////////////////////////////////////////////BRANDON'S ROUTES/////////////////////////////////////////////////
-// FLASHCARD ROUTES
-// List flashcards
-app.get("/flashcards", isAuthenticated, (req, res) => {
-    res.render("flashcards/list");
+// // FLASHCARD ROUTES
+// // List flashcards
+// app.get("/flashcards", isAuthenticated, (req, res) => {
+//     res.render("flashcards/list");
+// });
+
+// // New flashcard form
+// app.get("/flashcards/new", isAuthenticated, (req, res) => {
+//     res.render("flashcards/new");
+// });
+
+//////////////////////////////////////////////////////
+// BRANDON'S ROUTES – FLASHCARDS (updated 12/14)
+//////////////////////////////////////////////////////
+
+// LIST FLASHCARDS FOR A SUBJECT
+app.get("/subjects/:subjectId/flashcards", isAuthenticated, async (req, res) => {
+  const subjectId = req.params.subjectId;
+
+  const sql = `
+    SELECT *
+    FROM flashcards
+    WHERE subject_id = ?
+    ORDER BY created_at DESC
+  `;
+
+  try {
+    const [rows] = await pool.query(sql, [subjectId]);
+    res.render("flashcards/list", {
+      flashcards: rows,
+      subjectId
+    });
+  } catch (err) {
+    console.error("Flashcard list error:", err);
+    res.status(500).send("Server error");
+  }
 });
 
-// New flashcard form
-app.get("/flashcards/new", isAuthenticated, (req, res) => {
-    res.render("flashcards/new");
+
+// SHOW NEW FLASHCARD FORM (WITH SUBJECT DROPDOWN)
+app.get("/flashcards/new", isAuthenticated, async (req, res) => {
+  const sql = `
+    SELECT subject_id, subject_name
+    FROM subjects
+    WHERE user_id = ?
+    ORDER BY subject_name
+  `;
+
+  try {
+    const [subjects] = await pool.query(sql, [req.session.userId]);
+
+    res.render("flashcards/new", {
+      subjects
+    });
+  } catch (err) {
+    console.error("Load subjects for flashcard error:", err);
+    res.status(500).send("Server error");
+  }
 });
+
+
+
+// CREATE FLASHCARD (SUBJECT SELECTED BY USER)
+app.post("/flashcards", isAuthenticated, async (req, res) => {
+  const {
+    subject_id,
+    term,
+    definition,
+    difficulty,
+    is_starred
+  } = req.body;
+
+  const sql = `
+    INSERT INTO flashcards
+      (subject_id, term, definition, difficulty, is_starred, is_learned)
+    VALUES (?, ?, ?, ?, ?, 0)
+  `;
+
+  try {
+    await pool.query(sql, [
+      subject_id,
+      term,
+      definition,
+      difficulty,
+      is_starred ? 1 : 0
+    ]);
+
+    res.redirect(`/subjects/${subject_id}/flashcards`);
+  } catch (err) {
+    console.error("Create flashcard error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
+// SHOW EDIT FLASHCARD FORM (PRE-FILLED)
+app.get("/flashcards/:cardId/edit", isAuthenticated, async (req, res) => {
+  const cardId = req.params.cardId;
+
+  const sql = `
+    SELECT *
+    FROM flashcards
+    WHERE card_id = ?
+  `;
+
+  try {
+    const [rows] = await pool.query(sql, [cardId]);
+    res.render("flashcards/edit", {
+      flashcard: rows[0]
+    });
+  } catch (err) {
+    console.error("Edit flashcard load error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+// UPDATE FLASHCARD (UPDATES 5+ FIELDS)
+app.post("/flashcards/:cardId/update", isAuthenticated, async (req, res) => {
+  const cardId = req.params.cardId;
+
+  const {
+    term,
+    definition,
+    difficulty,
+    is_starred,
+    is_learned,
+    subject_id
+  } = req.body;
+
+  const sql = `
+    UPDATE flashcards
+    SET
+      term = ?,
+      definition = ?,
+      difficulty = ?,
+      is_starred = ?,
+      is_learned = ?,
+      last_reviewed = NOW()
+    WHERE card_id = ?
+  `;
+
+  try {
+    await pool.query(sql, [
+      term,
+      definition,
+      difficulty,
+      is_starred ? 1 : 0,
+      is_learned ? 1 : 0,
+      cardId
+    ]);
+
+    res.redirect(`/subjects/${subject_id}/flashcards`);
+  } catch (err) {
+    console.error("Update flashcard error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+// DELETE FLASHCARD
+app.post("/flashcards/:cardId/delete", isAuthenticated, async (req, res) => {
+  const cardId = req.params.cardId;
+  const subjectId = req.body.subject_id;
+
+  const sql = `
+    DELETE FROM flashcards
+    WHERE card_id = ?
+  `;
+
+  try {
+    await pool.query(sql, [cardId]);
+    res.redirect(`/subjects/${subjectId}/flashcards`);
+  } catch (err) {
+    console.error("Delete flashcard error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+//i like the large flashcard link on the nav. but my schema separates flash cards by subject. this redirect is a workaround to keep the home page as is
+
+// FLASHCARDS NAV REDIRECT (Brandon)
+app.get("/flashcards", isAuthenticated, async (req, res) => {
+  const sql = `
+    SELECT subject_id
+    FROM subjects
+    WHERE user_id = ?
+    ORDER BY created_on ASC
+    LIMIT 1
+  `;
+
+  try {
+    const [rows] = await pool.query(sql, [req.session.userId]);
+
+    if (rows.length === 0) {
+      // No subjects yet → send user to create one
+      return res.redirect("/subjects/new");
+    }
+
+    // Redirect to flashcards for first subject
+    res.redirect(`/subjects/${rows[0].subject_id}/flashcards`);
+  } catch (err) {
+    console.error("Flashcards nav redirect error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
+
 
 
 //////////////////////////////////////////////////////END OF BRANDON'S ROUTES/////////////////////////////////////////////

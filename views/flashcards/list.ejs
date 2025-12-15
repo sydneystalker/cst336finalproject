@@ -16,30 +16,65 @@
 
 <body>
 
-    <%- include('../partials/header'); %>
+    <%- include('../partials/header') %>
 
-    <main class="flashcards-main">
+<h2>Flashcards</h2>
 
-        <section class="flashcards-hero container">
+<a href="/flashcards/new">
+   Add Flashcard
+</a>
 
-            <!-- Page title -->
-            <h1 class="flashcards-title">Flashcards</h1>
 
-            <!--  -->
-            
+<table border="1" cellpadding="6">
+  <tr>
+    <th>Term</th>
+    <th>Difficulty</th>
+    <th>Important</th>
+    <th>Learned</th>
+    <th>Actions</th>
+  </tr>
 
-            <!-- Add Flashcard button -->
-            <div class="flashcards-add-wrapper">
-                <a href="/flashcards/new" class="btn btn-primary">
-                    Add Flashcard
-                </a>
-            </div>
+  <% flashcards.forEach(card => { %>
+    <tr>
+      <td><%= card.term %></td>
+      <td><%= card.difficulty %></td>
+      <td><%= card.is_starred ? '⭐' : '' %></td>
 
-        </section>
+      <td>
+        <form action="/flashcards/<%= card.card_id %>/update" method="post">
+          <input type="hidden" name="subject_id" value="<%= subjectId %>">
 
-    </main>
+          <input
+            type="checkbox"
+            name="is_learned"
+            value="1"
+            <%= card.is_learned ? 'checked' : '' %>
+            onchange="this.form.submit()"
+          >
+        </form>
+      </td>
 
-    <%- include('../partials/footer'); %>
+      <td>
+        <a href="/flashcards/<%= card.card_id %>/edit">✏ Edit</a>
+
+        <form
+          action="/flashcards/<%= card.card_id %>/delete"
+          method="post"
+          style="display:inline;"
+        >
+          <input type="hidden" name="subject_id" value="<%= subjectId %>">
+          <button type="submit">🗑 Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table>
+
+<br>
+<a href="/subjects">⬅ Back to Subjects</a>
+
+<%- include('../partials/footer') %>
+
 
 </body>
 </html>

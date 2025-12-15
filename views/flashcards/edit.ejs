@@ -1,0 +1,97 @@
+<!--  
+  Author: Brandon Evangelista
+  Class: CST 336 – Internet Programming
+  Date: 12/18/2025
+  Assignment: Final Project
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySmart – Flashcards</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+<%- include('../partials/header') %>
+
+<h2>Edit Flashcard</h2>
+
+<form action="/flashcards/<%= flashcard.card_id %>/update" method="post">
+
+  <input type="hidden" name="subject_id" value="<%= flashcard.subject_id %>">
+
+  <label for="term">Term</label>
+  <input
+    type="text"
+    id="term"
+    name="term"
+    value="<%= flashcard.term %>"
+    required
+  >
+
+  <label for="definition">Definition</label>
+  <textarea
+    id="definition"
+    name="definition"
+    rows="4"
+    required
+  ><%= flashcard.definition %></textarea>
+
+  <button type="button" onclick="getDefinition()">
+    Update from Dictionary
+  </button>
+
+  <fieldset>
+    <legend>Difficulty</legend>
+
+    <label>
+      <input type="radio" name="difficulty" value="easy"
+        <%= flashcard.difficulty === 'easy' ? 'checked' : '' %>>
+      Easy
+    </label>
+
+    <label>
+      <input type="radio" name="difficulty" value="medium"
+        <%= flashcard.difficulty === 'medium' ? 'checked' : '' %>>
+      Medium
+    </label>
+
+    <label>
+      <input type="radio" name="difficulty" value="hard"
+        <%= flashcard.difficulty === 'hard' ? 'checked' : '' %>>
+      Hard
+    </label>
+  </fieldset>
+
+  <label>
+    <input type="checkbox" name="is_starred" value="1"
+      <%= flashcard.is_starred ? 'checked' : '' %>>
+    Mark as Important
+  </label>
+
+  <br>
+
+  <label>
+    <input type="checkbox" name="is_learned" value="1"
+      <%= flashcard.is_learned ? 'checked' : '' %>>
+    Mark as Learned
+  </label>
+
+  <br><br>
+  <button type="submit">Save Changes</button>
+
+</form>
+
+<br>
+<a href="/subjects/<%= flashcard.subject_id %>/flashcards">
+  ⬅ Back to Flashcards
+</a>
+
+<%- include('../partials/footer') %>
+
+
+</body>
+</html>

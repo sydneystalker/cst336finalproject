@@ -1,34 +1,82 @@
-<!-- 
-  Author: Brandon Evangelista
-  Class: CST 336 – Internet Programming
-  Date: 12/18/2025
-  Assignment: Final Project
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudySmart</title>
-    <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySmart – Add Flashcard</title>
+
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/main.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Header + Nav -->
-    <%- include('../partials/header'); %>
+  <%- include('../partials/header') %>
 
-    <main class="container">
-        <h1>Add New Flashcard</h1>
+  <main class="container">
+    <h2>Add Flashcard</h2>
 
-        <div class="card">
-            <p>This is a placeholder for this page's content.</p>
-        </div>
-    </main>
+    <form action="/flashcards" method="post">
 
-    <!-- Footer -->
-    <%- include('../partials/footer'); %>
+      <!-- SUBJECT DROPDOWN -->
+      <label for="subject_id">Subject</label>
+      <select name="subject_id" id="subject_id" required>
+        <option value="">-- Select a Subject --</option>
+        <% subjects.forEach(subject => { %>
+          <option value="<%= subject.subject_id %>">
+            <%= subject.subject_name %>
+          </option>
+        <% }) %>
+      </select>
+
+      <!-- TERM -->
+      <label for="term">Term</label>
+      <input type="text" id="term" name="term" required>
+
+      <!-- DEFINITION -->
+      <label for="definition">Definition</label>
+      <textarea id="definition" name="definition" rows="4" required></textarea>
+
+      <button type="button" onclick="getDefinition()">
+        Get Definition from Dictionary
+      </button>
+
+      <!-- DIFFICULTY -->
+      <fieldset>
+        <legend>Difficulty</legend>
+
+        <label>
+          <input type="radio" name="difficulty" value="easy" required>
+          Easy
+        </label>
+
+        <label>
+          <input type="radio" name="difficulty" value="medium" checked>
+          Medium
+        </label>
+
+        <label>
+          <input type="radio" name="difficulty" value="hard">
+          Hard
+        </label>
+      </fieldset>
+
+      <!-- IMPORTANT -->
+      <label>
+        <input type="checkbox" name="is_starred" value="1">
+        Mark as Important
+      </label>
+
+      <br><br>
+      <button type="submit">Create Flashcard</button>
+
+    </form>
+
+    <br>
+    <a href="/subjects">⬅ Back to Subjects</a>
+  </main>
+
+  <%- include('../partials/footer') %>
 
 </body>
 </html>
