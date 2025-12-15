@@ -45,7 +45,15 @@
   <% flashcards.forEach(card => { %>
     <tr>
       <td><%= card.term %></td>
-      <td><%= card.difficulty %></td>
+     <td>
+  <% if (card.difficulty === 'easy') { %>
+    ⭐
+  <% } else if (card.difficulty === 'medium') { %>
+    ⭐⭐
+  <% } else if (card.difficulty === 'hard') { %>
+    ⭐⭐⭐
+  <% } %>
+</td>
 
       <!-- REMOVED: Important cell -->
 
