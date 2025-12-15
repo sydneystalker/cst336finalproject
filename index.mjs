@@ -95,6 +95,25 @@ app.get('/', isAuthenticated, async (req, res) => {
   let subjectCount = 0;
   let flashcardCount = 0; // keeping for now so the EJS doesn't break
 
+  /* ===== BRANDON: FLASHCARD COUNT ===== */
+try {
+  const [flashcardRows] = await pool.query(
+    `
+    SELECT COUNT(f.card_id) AS count
+    FROM flashcards f
+    JOIN subjects s ON f.subject_id = s.subject_id
+    WHERE s.user_id = ?
+    `,
+    [userId]
+  );
+
+  flashcardCount = flashcardRows[0].count;
+} catch (err) {
+  console.error("Flashcard stats query error:", err);
+}
+/* ===== END BRANDON   ===== */
+
+
   try {
     const [subjectRows] = await pool.query(
       "SELECT COUNT(*) AS count FROM subjects WHERE user_id = ?",
