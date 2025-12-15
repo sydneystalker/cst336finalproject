@@ -18,7 +18,15 @@
 
     <%- include('../partials/header') %>
 
-<h2>Flashcards</h2>
+<h2 class="flashcards-title">Flashcards</h2>
+
+<div class="study-btn-wrapper">
+  <a href="/subjects/<%= subjectId %>/flashcards/study" class="btn btn-primary study-btn">
+    📚 Study Mode
+  </a>
+</div>
+
+
 
 <a href="/flashcards/new">
    Add Flashcard

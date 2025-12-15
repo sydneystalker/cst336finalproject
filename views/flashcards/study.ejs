@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Flashcards</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script defer src="/js/study.js"></script>
+</head>
+
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="container flashcards-main">
+
+    <h2>Study Mode</h2>
+
+    <div class="flashcard-wrapper">
+      <div id="flashcard" class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front" id="card-front"></div>
+          <div class="flashcard-back" id="card-back"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flashcard-controls">
+      <button class="btn btn-primary" onclick="prevCard()">⬅ Prev</button>
+      <button class="btn btn-primary" onclick="nextCard()">Next ➡</button>
+    </div>
+
+    <br>
+    <a href="/subjects/<%= subjectId %>/flashcards">⬅ Back to Flashcards</a>
+
+    <!-- Pass cards safely to JS -->
+    <script>
+      const cards = <%- JSON.stringify(cards) %>;
+    </script>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

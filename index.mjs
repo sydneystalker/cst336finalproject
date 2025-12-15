@@ -398,6 +398,39 @@ app.get("/api/searchByCategory/:category", isAuthenticated, async(req, res) => {
 // BRANDON'S ROUTES – FLASHCARDS (updated 12/14)
 //////////////////////////////////////////////////////
 
+
+// STUDY FLASHCARDS (ONE AT A TIME)
+app.get("/subjects/:subjectId/flashcards/study", isAuthenticated, async (req, res) => {
+  const subjectId = req.params.subjectId;
+
+  const sql = `
+    SELECT card_id, term, definition
+    FROM flashcards
+    WHERE subject_id = ?
+    ORDER BY created_at
+  `;
+
+  try {
+    const [cards] = await pool.query(sql, [subjectId]);
+
+    if (cards.length === 0) {
+      return res.redirect(`/subjects/${subjectId}/flashcards`);
+    }
+
+    res.render("flashcards/study", {
+      cards,
+      subjectId
+    });
+  } catch (err) {
+    console.error("Study mode error:", err);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
+
+
 // LIST FLASHCARDS FOR A SUBJECT
 app.get("/subjects/:subjectId/flashcards", isAuthenticated, async (req, res) => {
   const subjectId = req.params.subjectId;
@@ -590,6 +623,15 @@ app.get("/flashcards", isAuthenticated, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+
+////////////////////////////////study mode///////////////////////
+
+// BRANDON – FLASHCARD STUDY MODE
+
+
+
+
 
 
 
