@@ -559,6 +559,16 @@ footer p {
     font-size: 1.25rem;
 }
 
+.subject-title {
+    margin-bottom: 0;
+}
+
+.subject-desc a {
+    margin-left: 14px;
+    width: 280px;
+    text-align: center;
+}
+
 .card-counts {
     display: flex;
     flex-direction: row;
