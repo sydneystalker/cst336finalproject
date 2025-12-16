@@ -30,17 +30,17 @@ async function displayCategorizedSubjects() {
         let formattedDate = date.toLocaleDateString();
         document.querySelector('.subjects-grid').innerHTML += `
             <div class="subject-card">
-                <h3 class="subject-title">${subjects[i].subject_name}</h3>
-                <div class="subject-desc">
+                    <div class="row-format subject-links">
+                        <h3 class="subject-title">${subjects[i].subject_name}</h3>
+                        <a href="/subjects/edit/${subjects[i].subject_id}" class="subject-link update-link"><span class="material-symbols-outlined">edit</span></a>
+                        <a href="/subjects/delete/${subjects[i].subject_id}" class="subject-link delete-link"><span class="material-symbols-outlined">delete</span></a>
+                    </div>                <div class="subject-desc">
+                    <a href="/subjects/${subjects[i].subject_id}/flashcards" class="btn btn-primary" style="margin-top: 12px;">View Flashcards</a>
                     <div class="card-counts">
                         <span class="count-type"><strong>Cards Learned:</strong> <span class="count-value">${subjects[i].cards_learned}</span></span>
                         <span class="count-type"><strong>Total Cards:</strong> <span class="count-value">${subjects[i].total_cards}</span></span>
                     </div>
                     <span><strong>Targeted Completion Date:</strong> ${formattedDate}</span>
-                    <div class="row-format subject-links">
-                        <a href="/subjects/edit/${subjects[i].subject_id}" class="subject-link update-link">Edit<span class="material-symbols-outlined">edit</span></a>
-                        <a href="/subjects/delete/${subjects[i].subject_id}" class="subject-link delete-link">Delete<span class="material-symbols-outlined">delete</span></a>
-                    </div>
                 </div>
             </div>
         `;

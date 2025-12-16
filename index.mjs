@@ -359,10 +359,17 @@ app.get("/subjects", isAuthenticated, async(req, res) => {
 
 // New subject form
 app.get("/subjects/new", isAuthenticated, (req, res) => {
-    res.render("subjects/new");
+    res.render("subjects/new", {session: req.session});
 });
 
 app.post("/subjects/new", isAuthenticated, async(req, res) => {
+    if(!req.body.subjectName || !req.body.subjectDescription || !req.body.endDate) {
+        req.session.errorMessage = "Error: All fields must be provided to submit!";
+        return res.redirect('/subjects/new');
+    }
+
+    req.session.errorMessage = null;
+
     let sql = `INSERT INTO subjects (user_id, subject_category, subject_name, subject_desc, target_date)
                         VALUES (?, ?, ?, ?, ?)`;
     const [rows] = await pool.query(sql, [req.session.userId,
@@ -378,10 +385,17 @@ app.get("/subjects/edit/:id", isAuthenticated, async(req, res) => {
     let categories = ['English', 'Math', 'Science', 'Social Studies', 'Physical Education', 'Art', 'Technical', 'Other'];
     let sql = `SELECT subject_id, subject_name, subject_category, subject_desc, DATE_FORMAT(target_date, '%Y-%m-%d') formatted_date FROM subjects WHERE subject_id = ?`;
     const [rows] = await pool.query(sql, [req.params.id]);
-    res.render("subjects/edit", { categories, subject: rows[0] });
+    res.render("subjects/edit", { categories, subject: rows[0], session: req.session });
 });
 
 app.post("/subjects/edit", isAuthenticated, async(req, res) => {
+    if(!req.body.subjectName || !req.body.subjectDescription || !req.body.endDate) {
+        req.session.errorMessage = "Error: All fields must be provided to submit!";
+        return res.redirect(`/subjects/edit/${req.body.subjectId}`);
+    }
+
+    req.session.errorMessage = null;
+
     let sql = `UPDATE subjects 
                         SET subject_name = ?, 
                             subject_category = ?, 
@@ -406,7 +420,6 @@ app.get("/subjects/delete/:id", isAuthenticated, async(req, res) => {
 app.get("/api/getCategories", isAuthenticated, async(req, res) => {
     let sql = `SELECT DISTINCT subject_category FROM subjects WHERE user_id = ?`;
     const [rows] = await pool.query(sql, [req.session.userId]);
-    console.log(rows);
     res.send(rows);
 })
 
@@ -414,12 +427,10 @@ app.get("/api/searchByCategory/:category", isAuthenticated, async(req, res) => {
     if (req.params.category != 'All') {
         let sql = `SELECT * FROM subjects WHERE subject_category = ? AND user_id = ?`;
         const [rows] = await pool.query(sql, [req.params.category, req.session.userId]);
-        console.log(rows);
         res.send(rows);
     } else {
         let sql = `SELECT * FROM subjects WHERE user_id = ?`;
         const [rows] = await pool.query(sql, [req.session.userId]);
-        console.log(rows);
         res.send(rows);
     }
 })

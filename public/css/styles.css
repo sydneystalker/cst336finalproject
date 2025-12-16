@@ -473,7 +473,12 @@ footer p {
    ========================================================= */
 
 .subjects-main {
-  background-color: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-light);
+    width: 100vw;
+    min-width: 700px;
+    align-items: center;
 }
 
 .subjects-hero {
@@ -495,11 +500,13 @@ footer p {
 /* subject cards grid */
 .subjects-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    width: 95vw;
+    max-width: 1200px;
     gap: 20px;
     padding: 20px;
-    justify-self: center;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .subject-card {
@@ -508,6 +515,7 @@ footer p {
   padding: 18px 20px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.08);
     width: 350px;
+    justify-self: center;
 }
 
 .subject-title {
@@ -535,12 +543,22 @@ footer p {
     font-size: 1.5rem;
     gap: 10px;
     justify-self: center;
+    flex-wrap: wrap;
+    padding: 16px;
 }
 
 .subject-form-header {
     display: flex;
     flex-direction: row;
     gap: 30px;
+    flex-wrap: wrap;
+}
+
+.subject-form-body {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    max-width: 1000px;
 }
 
 .subject-form-body textarea{
@@ -560,7 +578,7 @@ footer p {
 }
 
 .subject-title {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .subject-desc a {
@@ -599,12 +617,12 @@ footer p {
 .row-format {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .subject-links {
-    padding: 6px;
     justify-content: center;
-    gap: 30px;
 }
 
 .subject-links a:hover {
@@ -616,6 +634,7 @@ footer p {
     flex-direction: row;
     text-decoration: none;
     justify-content: center;
+    margin-left: 10px;
 }
 
 .update-link {
@@ -624,6 +643,16 @@ footer p {
 
 .delete-link {
     color: darkred;
+}
+
+.subject-form-footer {
+    display: flex;
+    flex-direction: row;
+}
+
+.errorMessageDisplay {
+    color: darkred;
+    margin-left: 16px;
 }
 
 /* =========================================================

@@ -38,7 +38,11 @@
         <section class="subjects-grid">
             <% for(i = 0; i < subjects.length; i++) { %>
                 <div class="subject-card">
-                    <h3 class="subject-title"><%=subjects[i].subject_name%></h3>
+                    <div class="row-format subject-links">
+                        <h3 class="subject-title"><%=subjects[i].subject_name%></h3>
+                        <a href="/subjects/edit/<%=subjects[i].subject_id%>" class="subject-link update-link"><span class="material-symbols-outlined">edit</span></a>
+                        <a href="/subjects/delete/<%=subjects[i].subject_id%>" class="subject-link delete-link"><span class="material-symbols-outlined">delete</span></a>
+                    </div>
                     <div class="subject-desc">
                         <!-- =============================== THIS IS BRANDON'S CODE =============================== -->
                         <a
@@ -54,10 +58,6 @@
                             <span class="count-type"><strong>Total Cards:</strong> <span class="count-value"><%=subjects[i].total_cards%></span></span>
                         </div>
                         <span><strong>Targeted Completion Date:</strong> <%=subjects[i].target_date.toLocaleDateString()%></span>
-                        <div class="row-format subject-links">
-                            <a href="/subjects/edit/<%=subjects[i].subject_id%>" class="subject-link update-link">Edit<span class="material-symbols-outlined">edit</span></a>
-                            <a href="/subjects/delete/<%=subjects[i].subject_id%>" class="subject-link delete-link">Delete<span class="material-symbols-outlined">delete</span></a>
-                        </div>
                     </div>
                 </div>
             <% } %>

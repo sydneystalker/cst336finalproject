@@ -43,7 +43,15 @@
             <div class="subject-form-body">
                 <span>Description:</span> <textarea name="subjectDescription"></textarea>
             </div>
-            <button>Add Subject</button>
+            <div class="subject-form-footer">
+                <button>Add Subject</button>
+                <span class="errorMessageDisplay">
+                    <% if (typeof session !== 'undefined' && session.errorMessage) { %>
+                        <%= session.errorMessage %>
+                        <% session.errorMessage = null %>
+                    <% } %>
+                </span>
+            </div>
         </form>
     </main>
 
