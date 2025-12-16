@@ -60,20 +60,21 @@
      </span>
     </td>
 
-      <!-- LEARNED CHECKBOX -->
-      <td style="text-align:center;">
-        <form action="/flashcards/<%= card.card_id %>/update" method="post">
-          <input type="hidden" name="subject_id" value="<%= subjectId %>">
+     <!-- LEARNED CHECKBOX -->
+<td style="text-align:center;">
+  <form
+    action="/flashcards/<%= card.card_id %>/toggle-learned"
+    method="post"
+  >
+    <input type="hidden" name="subject_id" value="<%= subjectId %>">
 
-          <input
-            type="checkbox"
-            name="is_learned"
-            value="1"
-            <%= card.is_learned ? 'checked' : '' %>
-            onchange="this.form.submit()"
-          >
-        </form>
-      </td>
+    <input
+      type="checkbox"
+      <%= card.is_learned ? 'checked' : '' %>
+      onchange="this.form.submit()"
+    >
+  </form>
+</td>
 
       <!-- ACTIONS -->
       <td>
