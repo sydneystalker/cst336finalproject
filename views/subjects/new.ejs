@@ -26,7 +26,7 @@
             <div class="subject-form-header">
                 <div>
                     <span>Category:</span>
-                    <select name="category">
+                    <select name="category" required>
                         <option value="English">English</option>
                         <option value="Math">Math</option>
                         <option value="Science">Science</option>
@@ -37,11 +37,11 @@
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div><span>Subject Name:</span> <input type="text" name="subjectName"></div>
-                <div><span>End Date:</span> <input type="date" name="endDate"></div>
+                <div><span>Subject Name:</span> <input type="text" name="subjectName" required></div>
+                <div><span>End Date:</span> <input type="date" name="endDate" required></div>
             </div>
             <div class="subject-form-body">
-                <span>Description:</span> <textarea name="subjectDescription"></textarea>
+                <span>Description:</span> <textarea name="subjectDescription" required></textarea>
             </div>
             <div class="subject-form-footer">
                 <button>Add Subject</button>

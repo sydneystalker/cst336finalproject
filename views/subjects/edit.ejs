@@ -25,7 +25,7 @@
             <div class="subject-form-header">
                 <div>
                     <span>Category:</span>
-                    <select name="category">
+                    <select name="category" required>
                         <% for(i = 0; i < categories.length; i++) { %>
                             <option value="<%=categories[i]%>"
                                     <% if (categories[i]==subject.subject_category) { %>selected<% } %>>
@@ -33,11 +33,11 @@
                         <% } %>
                     </select>
                 </div>
-                <div><span>Subject Name:</span> <input type="text" name="subjectName" value="<%=subject.subject_name%>"></div>
-                <div><span>End Date:</span> <input type="date" name="endDate" value="<%=subject.formatted_date%>"></div>
+                <div><span>Subject Name:</span> <input type="text" name="subjectName" value="<%=subject.subject_name%>" required></div>
+                <div><span>End Date:</span> <input type="date" name="endDate" value="<%=subject.formatted_date%>" required></div>
             </div>
             <div class="subject-form-body">
-                <span>Description:</span> <textarea name="subjectDescription"><%=subject.subject_desc%></textarea>
+                <span>Description:</span> <textarea name="subjectDescription" required><%=subject.subject_desc%></textarea>
             </div>
             <div class="subject-form-footer">
                 <button>Update Subject</button>

@@ -353,8 +353,13 @@ app.get("/subjects", isAuthenticated, async(req, res) => {
     let sql = `SELECT * 
                         FROM subjects 
                         WHERE user_id = ?`;
-    const [rows] = await pool.query(sql, [req.session.userId]);
-    res.render("subjects/list", {subjects: rows});
+    try {
+        const [rows] = await pool.query(sql, [req.session.userId]);
+        res.render("subjects/list", {subjects: rows});
+    } catch (err) {
+        console.error("Subjects list error:", err);
+        res.status(500).send("Server error");
+    }
 });
 
 // New subject form
@@ -372,20 +377,31 @@ app.post("/subjects/new", isAuthenticated, async(req, res) => {
 
     let sql = `INSERT INTO subjects (user_id, subject_category, subject_name, subject_desc, target_date)
                         VALUES (?, ?, ?, ?, ?)`;
-    const [rows] = await pool.query(sql, [req.session.userId,
-                                            req.body.category,
-                                            req.body.subjectName,
-                                            req.body.subjectDescription,
-                                            req.body.endDate]);
-    res.redirect("/subjects");
+
+    try {
+        const [rows] = await pool.query(sql, [req.session.userId,
+            req.body.category,
+            req.body.subjectName,
+            req.body.subjectDescription,
+            req.body.endDate]);
+        res.redirect("/subjects");
+    } catch (err) {
+        console.error("New Subject error:", err);
+        res.status(500).send("Server error");
+    }
 })
 
 // Edit subject form
 app.get("/subjects/edit/:id", isAuthenticated, async(req, res) => {
     let categories = ['English', 'Math', 'Science', 'Social Studies', 'Physical Education', 'Art', 'Technical', 'Other'];
     let sql = `SELECT subject_id, subject_name, subject_category, subject_desc, DATE_FORMAT(target_date, '%Y-%m-%d') formatted_date FROM subjects WHERE subject_id = ?`;
-    const [rows] = await pool.query(sql, [req.params.id]);
-    res.render("subjects/edit", { categories, subject: rows[0], session: req.session });
+    try {
+        const [rows] = await pool.query(sql, [req.params.id]);
+        res.render("subjects/edit", {categories, subject: rows[0], session: req.session});
+    } catch (err) {
+        console.error("Edit Subject error:", err);
+        res.status(500).send("Server error");
+    }
 });
 
 app.post("/subjects/edit", isAuthenticated, async(req, res) => {
@@ -407,31 +423,57 @@ app.post("/subjects/edit", isAuthenticated, async(req, res) => {
                             req.body.subjectDescription,
                             req.body.endDate,
                             req.body.subjectId];
-    const [rows] = await pool.query(sql, params);
-    res.redirect("/subjects");
+    try {
+        const [rows] = await pool.query(sql, params);
+        res.redirect("/subjects");
+    } catch (err) {
+        console.error("Edit Subject error:", err);
+        res.status(500).send("Server error");
+    }
 })
 
 app.get("/subjects/delete/:id", isAuthenticated, async(req, res) => {
     let sql = `DELETE FROM subjects WHERE subject_id = ?`;
-    const [rows] = await pool.query(sql, [req.params.id]);
-    res.redirect("/subjects");
+
+    try {
+        const [rows] = await pool.query(sql, [req.params.id]);
+        res.redirect("/subjects");
+    } catch (err) {
+        console.error("Delete subjects error:", err);
+        res.status(500).send("Server error");
+    }
 })
 
 app.get("/api/getCategories", isAuthenticated, async(req, res) => {
     let sql = `SELECT DISTINCT subject_category FROM subjects WHERE user_id = ?`;
-    const [rows] = await pool.query(sql, [req.session.userId]);
-    res.send(rows);
+    try {
+        const [rows] = await pool.query(sql, [req.session.userId]);
+        res.send(rows);
+    } catch (err) {
+        console.error("Get Categories error:", err);
+        res.status(500).send("Server error");
+    }
 })
 
 app.get("/api/searchByCategory/:category", isAuthenticated, async(req, res) => {
     if (req.params.category != 'All') {
-        let sql = `SELECT * FROM subjects WHERE subject_category = ? AND user_id = ?`;
-        const [rows] = await pool.query(sql, [req.params.category, req.session.userId]);
-        res.send(rows);
+        try {
+            let sql = `SELECT * FROM subjects WHERE subject_category = ? AND user_id = ?`;
+            const [rows] = await pool.query(sql, [req.params.category, req.session.userId]);
+            res.send(rows);
+        } catch (err) {
+            console.error("Search By Category error:", err);
+            res.status(500).send("Server error");
+        }
     } else {
-        let sql = `SELECT * FROM subjects WHERE user_id = ?`;
-        const [rows] = await pool.query(sql, [req.session.userId]);
-        res.send(rows);
+        try {
+            let sql = `SELECT * FROM subjects WHERE user_id = ?`;
+            const [rows] = await pool.query(sql, [req.session.userId]);
+            res.send(rows);
+        } catch (err) {
+            console.error("Search By Category error:", err);
+            res.status(500).send("Server error");
+        }
     }
 })
 
