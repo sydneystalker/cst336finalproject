@@ -680,6 +680,11 @@ footer p {
   text-align: center;
 }
 
+td .important-flag {
+  font-size: 1.2rem;
+}
+
+
 .flashcard-wrapper {
   display: flex;
   justify-content: center;
@@ -756,3 +761,8 @@ footer p {
   text-align: center;
   margin-bottom: 20px;
 } 
+.important-icon {
+  color: #f5a623;
+  font-size: 1.2rem;
+  margin-left: 6px;
+}

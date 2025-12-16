@@ -497,11 +497,12 @@ app.get("/api/searchByCategory/:category", isAuthenticated, async(req, res) => {
 
 
 // STUDY FLASHCARDS (ONE AT A TIME)
+// STUDY FLASHCARDS (ONE AT A TIME)
 app.get("/subjects/:subjectId/flashcards/study", isAuthenticated, async (req, res) => {
   const subjectId = req.params.subjectId;
 
   const sql = `
-    SELECT card_id, term, definition
+    SELECT card_id, term, definition, is_starred
     FROM flashcards
     WHERE subject_id = ?
     ORDER BY created_at
@@ -523,6 +524,7 @@ app.get("/subjects/:subjectId/flashcards/study", isAuthenticated, async (req, re
     res.status(500).send("Server error");
   }
 });
+
 
 
 

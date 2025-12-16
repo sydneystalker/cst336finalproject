@@ -17,7 +17,19 @@
     <div class="flashcard-wrapper">
       <div id="flashcard" class="flashcard">
         <div class="flashcard-inner">
-          <div class="flashcard-front" id="card-front"></div>
+          <div class="flashcard-front" id="card-front">
+            <h2 class="study-term" id="study-term">
+                <%= cards[0].term %>
+
+                <% if (cards[0].is_starred) { %>
+                <span class="important-icon">⚠️</span>
+                <% } %>
+            </h2>
+            </div>
+
+            <div class="flashcard-back" id="card-back">
+            <p id="study-definition"><%= cards[0].definition %></p>
+            </div>
           <div class="flashcard-back" id="card-back"></div>
         </div>
       </div>

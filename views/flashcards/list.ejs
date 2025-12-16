@@ -32,12 +32,11 @@
    Add Flashcard
 </a>
 
-
 <table border="1" cellpadding="6">
   <tr>
     <th>Term</th>
     <th>Difficulty</th>
-    <!-- REMOVED: Important column -->
+    <th>Important</th>
     <th>Learned</th>
     <th>Actions</th>
   </tr>
@@ -45,21 +44,25 @@
   <% flashcards.forEach(card => { %>
     <tr>
       <td><%= card.term %></td>
-     <td>
-  <% if (card.difficulty === 'easy') { %>
-    ⭐
-  <% } else if (card.difficulty === 'medium') { %>
-    ⭐⭐
-  <% } else if (card.difficulty === 'hard') { %>
-    ⭐⭐⭐
-  <% } %>
-</td>
 
-      <!-- REMOVED: Important cell -->
-
+      <!-- Difficulty shown as stars -->
       <td>
-        <form action="/flashcards/<%= card.card_id %>/toggle-learned" method="post">
+        <% if (card.difficulty === 'easy') { %>⭐
+        <% } else if (card.difficulty === 'medium') { %>⭐⭐
+        <% } else { %>⭐⭐⭐
+        <% } %>
+      </td>
 
+      <!-- IMPORTANT COLUMN -->
+     <td style="text-align:center;">
+    <span class="important-flag">
+    <%= card.is_starred ? '⚠️' : '' %>
+     </span>
+    </td>
+
+      <!-- LEARNED CHECKBOX -->
+      <td style="text-align:center;">
+        <form action="/flashcards/<%= card.card_id %>/update" method="post">
           <input type="hidden" name="subject_id" value="<%= subjectId %>">
 
           <input
@@ -72,6 +75,7 @@
         </form>
       </td>
 
+      <!-- ACTIONS -->
       <td>
         <a href="/flashcards/<%= card.card_id %>/edit">✏ Edit</a>
 
@@ -87,6 +91,7 @@
     </tr>
   <% }) %>
 </table>
+
 
 
 <br>

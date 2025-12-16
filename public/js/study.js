@@ -1,4 +1,4 @@
-//////////////////////////STUDY MODE FLASH CARDs (BRANDON)//////////////////
+////////////////////////// STUDY MODE FLASHCARDS (BRANDON) //////////////////
 let currentIndex = 0;
 
 const flashcard = document.getElementById("flashcard");
@@ -8,8 +8,14 @@ const back = document.getElementById("card-back");
 function renderCard() {
   flashcard.classList.remove("flipped");
 
-  front.textContent = cards[currentIndex].term;
-  back.textContent = cards[currentIndex].definition;
+  const card = cards[currentIndex];
+
+  front.innerHTML = `
+    ${card.term}
+    ${card.is_starred ? '<span class="important-icon"> ⚠️</span>' : ''}
+  `;
+
+  back.textContent = card.definition;
 }
 
 function nextCard() {
